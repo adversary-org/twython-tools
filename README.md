@@ -1,4 +1,8 @@
-twython-tools
+Twython Tools
 =============
 
-Scripts and tools for implementing Twython functions
+Scripts and tools for implementing Twython functions.
+
+Incorporates functions from other libraries and modules, including
+python-gnupg.
+
