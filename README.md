@@ -21,7 +21,20 @@ directory.
 
 ## Contacting me
 
+My email address is in most of the scripts in this project as well as
+included in my GPG key as the primary user ID.
+
 A minimised copy of my GPG key is in the Documentation/ directory
 (ben-key-min.asc), this version does not include all the current
 signatures.  Refreshing that key from the key servers will restore
 those signatures.
+
+To get my key directly from the servers run:
+
+    gpg --recv-keys 0x321E4E2373590E5D
+
+To refresh my key if it is already in your keyring run:
+
+    gpg --refresh-keys 0x321E4E2373590E5D
+
+You can also visit my [website](http://www.adversary.org/) or [follow me on Twitter](https://twitter.com/benmcginnes).
