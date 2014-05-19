@@ -34,7 +34,6 @@ from twython import Twython
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
-#twitter.verify_credentials()
 
 l = len(sys.argv)
 
