@@ -24,4 +24,7 @@ pring = []
 sring = []
 pring.append(pub_ring)
 sring.append(sec_ring)
-
+#homebin = ""  # set this if you move foad.py to another location
+#              # (e.g. homedir+"/bin/" or "/usr/local/bin/"
+#foad = homebin+"foad.py"
+foad = "foad.py"  # Add foad.py to this directory or add to path.
