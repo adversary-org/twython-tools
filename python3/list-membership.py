@@ -14,7 +14,6 @@
 # Requirements:
 #
 # * Python 3.2 or later (developed with Python 3.4.x)
-# * Converted from scripts initially developed with Python 2.7.x.
 #
 # Options and notes:
 #
@@ -41,8 +40,6 @@ if l == 1:
     user = input("Enter username or user ID of user: ")
 elif l >= 2:
     user = sys.argv[1]
-else:
-    user = "benmcginnes"
 
 if isinstance(user, str) is True:
     data = twitter.get_list_memberships(screen_name=user)
