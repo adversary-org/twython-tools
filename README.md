@@ -38,3 +38,12 @@ To refresh my key if it is already in your keyring run:
     gpg --refresh-keys 0x321E4E2373590E5D
 
 You can also visit my [website](http://www.adversary.org/) or [follow me on Twitter](https://twitter.com/benmcginnes).
+
+
+## Using the Scripts
+
+The scripts generally take their parameters on the command line, but
+are also able to receive those parameters through interactive text
+prompts.  Generally I recommend the latter at least until you are
+familiar enough with the order to run them without those prompts.
+
