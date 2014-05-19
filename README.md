@@ -19,7 +19,7 @@ Python version specific information is in the Documentation/
 directory.
 
 
-# Contacting me
+## Contacting me
 
 A minimised copy of my GPG key is in the Documentation/ directory
 (ben-key-min.asc), this version does not include all the current
