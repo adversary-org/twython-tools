@@ -34,7 +34,6 @@ from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
-#twitter.verify_credentials()
 
 l = len(sys.argv)
 
@@ -47,9 +46,6 @@ elif l == 2:
 elif l >= 3:
     user1 = sys.argv[1]
     user2 = sys.argv[2]
-else:
-    user1 = "benmcginnes"
-    user2 = input("Enter username or user ID of second user: ")
 
 if isinstance(user1, str) is True and isinstance(user2, str) is True:
     data1 = twitter.show_friendship(source_screen_name=user1, target_screen_name=user2)
