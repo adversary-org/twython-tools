@@ -37,8 +37,10 @@ __version__ = "0.0.1"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import gnupg
+from os.path import expanduser
 
-gpg_home = "~/.gnupg"
+homedir = expanduser("~")
+gpg_home = homedir+"/.gnupg"
 gpg = gnupg.GPG(gnupghome=gpg_home)
 
 print("""
