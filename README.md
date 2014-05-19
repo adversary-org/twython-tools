@@ -17,3 +17,11 @@ The foad.py script is [available here](https://github.com/adversary-org/foad).
 
 Python version specific information is in the Documentation/
 directory.
+
+
+# Contacting me
+
+A minimised copy of my GPG key is in the Documentation/ directory
+(ben-key-min.asc), this version does not include all the current
+signatures.  Refreshing that key from the key servers will restore
+those signatures.
