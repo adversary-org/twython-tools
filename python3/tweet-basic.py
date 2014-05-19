@@ -30,7 +30,7 @@ __version__ = "0.0.1"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import sys
-from twython import Twython
+from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
@@ -47,5 +47,7 @@ elif l < 2:
 else:
     mesg = input("Tweet (140 characters max): ")
 
-#print(mesg)
-twitter.update_status(status=mesg)
+try:
+    twitter.update_status(status=mesg)
+except TwythonError as e:
+    print(e)
