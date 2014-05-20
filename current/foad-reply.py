@@ -44,13 +44,27 @@ if l == 2:
     victim = input("* Recipient: ")
     stat = input("* Twitter ID for status being replied to: ")
 elif l == 3:
-    wtf = sys.argv[1]
-    victim = sys.argv[2]
-    stat = input("* Twitter ID for status being replied to: ")
+    sa2 = sys.argv[2]
+    if sa2.startswith("https://twitter.com/") is True:
+        wtf = sys.argv[1]
+        a = sa2.replace(sa2[0:20], "").replace("/status/", " ").split()
+        victim = a[0]
+        stat = a[1]
+    else:
+        wtf = sys.argv[1]
+        victim = sys.argv[2]
+        stat = input("* Twitter ID for status being replied to: ")
 elif l >= 4:
-    wtf = sys.argv[1]
-    victim = sys.argv[2]
-    stat = sys.argv[3]
+    sa2 = sys.argv[2]
+    if sa2.startswith("https://twitter.com/") is True:
+        wtf = sys.argv[1]
+        a = sa2.replace(sa2[0:20], "").replace("/status/", " ").split()
+        victim = a[0]
+        stat = a[1]
+    else:
+        wtf = sys.argv[1]
+        victim = sys.argv[2]
+        stat = sys.argv[3]
 elif l < 2:
     wtf = input("* Type of fuck to give: ")
     victim = input("* Recipient: ")

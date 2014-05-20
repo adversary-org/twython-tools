@@ -41,8 +41,17 @@ if l == 1:
     stat = input("* Twitter ID for status being replied to: ")
     mesg = input("* Status update (140 characters max, must include @username): ")
 elif l == 2:
-    stat = sys.argv[1]
-    mesg = input("* Status update (140 characters max, must include @username): ")
+    sa1 = sys.argv[1]
+    if sa1.startswith("https://twitter.com/") is True:
+        a = sa1.replace(sa1[0:20], "").replace("/status/", " ").split()
+        stat = a[1]
+        user = a[0]
+        char = 140 - (len(user) + 2)
+        msg = input("Enter the reply, not counting the username (%s characters max: " % char)
+        mesg = "@" + user + " " + msg
+    else:
+        stat = sys.argv[1]
+        mesg = input("* Status update (140 characters max, must include @username): ")
 elif l >= 3:
     stat = sys.argv[1]
     msg = []
