@@ -30,7 +30,7 @@ __version__ = "0.0.1"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import sys
-from twython import Twython
+from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
@@ -58,4 +58,7 @@ adata = afile.readlines()
 afile.close()
 for string in adata:
     target = string.strip()
-    twitter.send_direct_message(screen_name=target, text=mesg)
+    try:
+        twitter.send_direct_message(screen_name=target, text=mesg)
+    except TwythonError as e:
+        print(e)

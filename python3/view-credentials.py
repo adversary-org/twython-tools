@@ -30,11 +30,13 @@ __version__ = "0.0.1"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import pprint
-from twython import Twython
+from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
-cred = twitter.verify_credentials()
-
-pprint.pprint(cred)
+try:
+    cred = twitter.verify_credentials()
+    pprint.pprint(cred)
+except TwythonError as e:
+    print(e)

@@ -31,7 +31,7 @@ __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import subprocess
 import sys
-from twython import Twython
+from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
@@ -62,6 +62,9 @@ else:
 
 target = "@" + victim
 mesg = p(foad +" "+ wtf +" "+ target, shell=True).strip()
-
 print(mesg.decode("utf-8", "strict"))
-twitter.update_status(status=mesg, in_reply_to_status_id=stat)
+
+try:
+    twitter.update_status(status=mesg, in_reply_to_status_id=stat)
+except TwythonError as e:
+    print(e)

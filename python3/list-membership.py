@@ -42,9 +42,15 @@ elif l >= 2:
     user = sys.argv[1]
 
 if isinstance(user, str) is True:
-    data = twitter.get_list_memberships(screen_name=user)
+    try:
+        data = twitter.get_list_memberships(screen_name=user)
+    except TwythonError as e:
+        print(e)
 elif isinstance(user, int) is True:
-    data = twitter.get_list_memberships(user_id=user)
+    try:
+        data = twitter.get_list_memberships(user_id=user)
+    except TwythonError as e:
+        print(e)
 
 for i in range(len(data["lists"])):
     print("""          Source:  %s

@@ -48,17 +48,29 @@ elif l >= 3:
     user2 = sys.argv[2]
 
 if isinstance(user1, str) is True and isinstance(user2, str) is True:
-    data1 = twitter.show_friendship(source_screen_name=user1, target_screen_name=user2)
-    data2 = twitter.show_friendship(source_screen_name=user2, target_screen_name=user1)
+    try:
+        data1 = twitter.show_friendship(source_screen_name=user1, target_screen_name=user2)
+        data2 = twitter.show_friendship(source_screen_name=user2, target_screen_name=user1)
+    except TwythonError as e:
+        print(e)
 elif isinstance(user1, str) is True and isinstance(user2, int) is True:
-    data1 = twitter.show_friendship(source_screen_name=user1, target_id=user2)
-    data2 = twitter.show_friendship(source_id=user2, target_screen_name=user1)
+    try:
+        data1 = twitter.show_friendship(source_screen_name=user1, target_id=user2)
+        data2 = twitter.show_friendship(source_id=user2, target_screen_name=user1)
+    except TwythonError as e:
+        print(e)
 elif isinstance(user1, int) is True and isinstance(user2, str) is True:
-    data1 = twitter.show_friendship(source_id=user1, target_screen_name=user2)
-    data2 = twitter.show_friendship(source_screen_name=user2, target_id=user1)
+    try:
+        data1 = twitter.show_friendship(source_id=user1, target_screen_name=user2)
+        data2 = twitter.show_friendship(source_screen_name=user2, target_id=user1)
+    except TwythonError as e:
+        print(e)
 elif isinstance(user1, int) is True and isinstance(user2, int) is True:
-    data1 = twitter.show_friendship(source_id=user1, target_id=user2)
-    data2 = twitter.show_friendship(source_id=user2, target_id=user1)
+    try:
+        data1 = twitter.show_friendship(source_id=user1, target_id=user2)
+        data2 = twitter.show_friendship(source_id=user2, target_id=user1)
+    except TwythonError as e:
+        print(e)
 else:
     print("Something went wrong!")
 

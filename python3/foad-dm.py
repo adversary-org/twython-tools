@@ -31,7 +31,7 @@ __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import subprocess
 import sys
-from twython import Twython
+from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
@@ -67,6 +67,9 @@ if len(name) == 0:
     name = target
 
 mesg = p(foad +" "+ wtf +" "+ name, shell=True).strip()
-
 print(mesg.decode("utf-8", "strict"))
-twitter.send_direct_message(screen_name=target, text=mesg)
+
+try:
+    twitter.send_direct_message(screen_name=target, text=mesg)
+except TwythonError as e:
+    print(e)

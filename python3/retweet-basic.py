@@ -30,7 +30,7 @@ __version__ = "0.0.1"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import sys
-from twython import Twython
+from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
@@ -38,8 +38,11 @@ twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 l = len(sys.argv)
 
 if l >= 2:
-    mesg = sys.argv[1]
+    twid = sys.argv[1]
 else:
-    mesg = input("Tweet ID number to retweet: ")
+    twid = input("Tweet ID number to retweet: ")
 
-twitter.retweet(id=mesg)
+try:
+    twitter.retweet(id=twid)
+except TwythonError as e:
+    print(e)

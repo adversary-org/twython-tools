@@ -30,7 +30,7 @@ __version__ = "0.0.1"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import sys
-from twython import Twython
+from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
@@ -53,4 +53,7 @@ else:
     stat = input("* Twitter ID for status being replied to: ")
     mesg = input("* Status update (140 characters max, must include @username): ")
 
-twitter.update_status(status=mesg, in_reply_to_status_id=stat)
+try:
+    twitter.update_status(status=mesg, in_reply_to_status_id=stat)
+except TwythonError as e:
+    print(e)

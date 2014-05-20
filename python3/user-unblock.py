@@ -30,7 +30,7 @@ __version__ = "0.0.1"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import sys
-from twython import Twython
+from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
@@ -52,4 +52,3 @@ elif isinstance(target, int) is True:
         twitter.destroy_block(user_id=target, follow="true")
     except TwythonError as e:
         print(e)
-

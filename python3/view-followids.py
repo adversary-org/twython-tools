@@ -30,7 +30,7 @@ __version__ = "0.0.1"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import sys
-from twython import Twython
+from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
@@ -42,8 +42,14 @@ if l >= 2:
 else:
     user = input("Enter Twitter handle to get followers of: ")
 
-followids = twitter.get_followers_ids(screen_name=user)
-for x in followids["ids"]:
-    data = twitter.show_user(user_id=x)
-    print(data["screen_name"])
+try:
+    followids = twitter.get_followers_ids(screen_name=user)
+except TwythonError as e:
+    print(e)
 
+for x in followids["ids"]:
+    try:
+        data = twitter.show_user(user_id=x)
+        print(data["screen_name"])
+    except TwythonError as e:
+        print(e)
