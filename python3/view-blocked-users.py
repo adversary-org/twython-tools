@@ -39,6 +39,6 @@ try:
     busr = blocked["users"]
     bnum = len(busr)
     for i in range(bnum):
-        print("%s: %s" % (busr[i]["screen_name"], busr[i]["name"])
+        print("%s: %s" % (busr[i]["screen_name"], busr[i]["name"]))
 except TwythonError as e:
     print(e)
