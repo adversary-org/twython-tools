@@ -10,7 +10,6 @@
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
 #
-#
 # Requirements:
 #
 # * Python 3.2 or later (developed with Python 3.4.x)
@@ -39,8 +38,6 @@ l = len(sys.argv)
 
 if l >= 2:
     twid = sys.argv[1]
-elif l < 2:
-    twid = input("ID number of tweet to delete: ")
 else:
     twid = input("ID number of tweet to delete: ")
 
