@@ -51,12 +51,13 @@ else:
     victim = input("* Recipient: ")
 
 target = "@" + victim
-mesg = p(foad +" "+ wtf +" "+ target, shell=True).strip()
+mesg = p("%s -f %s -n %s" % (foad, wtf, target), shell=True).strip()
 
 if target in mesg:
     message = mesg
 elif target not in mesg:
-    message = target + ", " + mesg[0:4].lower() + mesg[4:len(mesg)]
+    message = "%s, %s%s" % (target, mesg[0:4].lower(), mesg[4:len(mesg)])
+    #message = target + ", " + mesg[0:4].lower() + mesg[4:len(mesg)]
 
 print(message.decode("utf-8", "strict"))
 

@@ -77,7 +77,7 @@ else:
     tags = input("Append hashtags (optional, enter as they appear): ")
 
 target = "@" + victim
-mesg = p(foad +" "+ wtf +" "+ target, shell=True).strip()
+mesg = p("%s -f %s -n %s" % (foad, wtf, target), shell=True).strip()
 
 print(mesg.decode("utf-8", "strict"))
 
