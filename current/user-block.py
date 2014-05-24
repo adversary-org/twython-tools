@@ -44,12 +44,12 @@ else:
 
 if isinstance(target, str) is True:
     try:
-        twitter.create_block(screen_name=target, follow="true")
+        twitter.create_block(screen_name=target)
     except TwythonError as e:
         print(e)
 elif isinstance(target, int) is True:
     try:
-        twitter.create_block(user_id=target, follow="true")
+        twitter.create_block(user_id=target)
     except TwythonError as e:
         print(e)
 

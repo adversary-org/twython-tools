@@ -66,7 +66,7 @@ else:
 if len(name) == 0:
     name = target
 
-mesg = p(foad +" "+ wtf +" "+ name, shell=True).strip()
+mesg = p("%s -f %s -n %s" % (foad, wtf, name), shell=True).strip()
 print(mesg.decode("utf-8", "strict"))
 
 try:

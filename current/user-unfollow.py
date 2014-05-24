@@ -44,11 +44,11 @@ else:
 
 if isinstance(target, str) is True:
     try:
-        twitter.destroy_friendship(screen_name=target, follow="true")
+        twitter.destroy_friendship(screen_name=target)
     except TwythonError as e:
         print(e)
 elif isinstance(target, int) is True:
     try:
-        twitter.destroy_friendship(user_id=target, follow="true")
+        twitter.destroy_friendship(user_id=target)
     except TwythonError as e:
         print(e)

@@ -69,17 +69,18 @@ else:
     tags = input("Append hashtags (optional, enter as they appear): ")
 
 if len(victim) == 0 and len(name) == 0:
-    msg = p(foad +" "+ wtf, shell=True).strip()
+    msg = p("%s -f %s" % (foad, wtf), shell=True).strip()
 elif len(victim) == 0 and len(name) >= 1:
     target = name
-    msg = p(foad +" "+ wtf +" "+ target, shell=True).strip()
+    msg = p("%s -f %s -n %s" % (foad, wtf, target), shell=True).strip()
 elif len(victim) >= 1 and len(name) == 0:
     target = "@" + victim
-    msg = p(foad +" "+ wtf +" "+ target, shell=True).strip()
+    msg = p("%s -f %s -n %s" % (foad, wtf, target), shell=True).strip()
 elif len(victim) >= 1 and len(name) >= 1:
     target1 = "@" + victim
     target2 = name
-    msg = target1 + ": " + p(foad +" "+ wtf +" "+ target2, shell=True).strip()
+    fmsg = p("%s -f %s -n %s" % (foad, wtf, target2, shell=True).strip()
+    msg = "%s: %s" % (target1, fmsg)
 
 if len(msg) + len(tags) <= 135:
     mesg = msg +" "+tags

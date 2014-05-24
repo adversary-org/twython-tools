@@ -44,11 +44,11 @@ else:
 
 if isinstance(target, str) is True:
     try:
-        twitter.destroy_block(screen_name=target, follow="true")
+        twitter.destroy_block(screen_name=target, skip_status="true")
     except TwythonError as e:
         print(e)
 elif isinstance(target, int) is True:
     try:
-        twitter.destroy_block(user_id=target, follow="true")
+        twitter.destroy_block(user_id=target, skip_status="true")
     except TwythonError as e:
         print(e)
