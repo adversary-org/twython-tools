@@ -40,8 +40,8 @@ __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 import gnupg
 from os.path import expanduser
 
-homedir = expanduser("~")
-gpg_home = homedir+"/.gnupg"
+userdir = expanduser("~")
+gpg_home = userdir+"/.gnupg"
 gpg = gnupg.GPG(gnupghome=gpg_home)
 
 phrase = input("Enter the passphrase to authorise access to Twitter: ")
