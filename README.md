@@ -22,10 +22,10 @@ directory.
 ## REQUIREMENTS ##
 
 * Python 3.2 or greater.
-* The python-gnupg module
-** **IMPORTANT:** install with "pip3 install python-gnupg" as using "pip3 install gnupg" will install an incompatible fork of python-gnupg which breaks these scripts (and any other software utilising the original code).
-** Yes, @isislovecruft (the author of the fork) should have renamed it to allow either module to be used instead of preventing the other, but arrogance knows no bounds it seems.  Presumably calling the fork gnupg2 was just too difficult.
-** Note also that the new fork cannot be used as a library or library wrapper without losing the choice of license (there's a reason why people choose the BSD or LGPL licenses for some things).
+* The python-gnupg module.  
+** **IMPORTANT:** install with "pip3 install python-gnupg" as using "pip3 install gnupg" will install an incompatible fork of python-gnupg which breaks these scripts (and any other software utilising the original code).  
+** Yes, @isislovecruft (the author of the fork) should have renamed it to allow either module to be used instead of preventing the other, but arrogance knows no bounds it seems.  Presumably calling the fork gnupg2 was just too difficult.  
+** Note also that the new fork cannot be used as a library or library wrapper without losing the choice of license (there's a reason why people choose the BSD or LGPL licenses for some things).  
 
 
 ## Contacting me
