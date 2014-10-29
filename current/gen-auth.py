@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 ##
 # Copyright (C) Ben McGinnes, 2013-2014
@@ -15,7 +16,7 @@
 #
 # * Python 3.2 or later (developed with Python 3.4.x)
 # * Converted from scripts initially developed with Python 2.7.x.
-# * python-gnupg 0.3.5 or later.
+# * python-gnupg 0.3.6 or later.
 # * GNU Privacy Guard (GnuPG, GPG) 1.4.x or 2.0.x).
 # * Tor service with SOCKS and proxy (optional).
 #
