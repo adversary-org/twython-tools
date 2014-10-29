@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
+
 from authinfo import APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET
 from authinfo import client_args
 from os.path import expanduser
 
 homedir = expanduser("~")
 gpg_home = homedir+"/.gnupg"
-gpg_homeshort = "~/.gnupg" # optional
+gpg_homeshort = "~/.gnupg"  # optional
 pub_ring = gpg_home+"/pubring.gpg"
 sec_ring = gpg_home+"/secring.gpg"
 #homedir = "C:\Documents and Settings\Administrator\Application Data"

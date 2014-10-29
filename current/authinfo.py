@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 ##
 # Copyright (C) Ben McGinnes, 2013-2014
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.1
+# Version:  0.0.2
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -14,7 +15,7 @@
 #
 # * Python 3.2 or later (developed with Python 3.4.x).
 # * Converted from scripts initially developed with Python 2.7.x.
-# * python-gnupg 0.3.5 or later.
+# * python-gnupg 0.3.6 or later.
 # * GNU Privacy Guard (GnuPG, GPG) 1.4.x or 2.0.x).
 # * Tor service with SOCKS and proxy (optional).
 #
@@ -33,7 +34,7 @@ __copyright__ = "Copyright © Benjamin D. McGinnes, 2013-2014"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
 __copyrightu__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
 __license__ = "BSD"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 
