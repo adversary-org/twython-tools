@@ -6,7 +6,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.4
+# Version:  0.0.5
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -33,11 +33,11 @@ __author__ = "Ben McGinnes <ben@adversary.org>"
 __copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
 __license__ = "BSD"
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 
-import base64
+import binascii
 import getpass
 import hashlib
 
@@ -69,7 +69,9 @@ del password
 
 for i in range(4):
     afile = open(files[i], "w")
-    afile.write(base64.b64encode(encrypt(phrase, data[i].encode("utf-8"))))
+    crypted = encrypt(phrase, data[i])
+    ciphertext = binascii.hexlify(crypted)
+    afile.write(ciphertext.decode("utf-8"))
     afile.close()
 
 del phrase
