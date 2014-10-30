@@ -4,9 +4,9 @@ Twython Tools
 Command line scripts and tools for implementing Twython functions.
 
 Incorporates functions from other Python libraries and modules,
-including twython, requests, python-gnupg and foad.py.
+including twython, requests, PyCrypto, and foad.py.
 
-Also uses GPG and Tor.
+Use of Tor is optional.
 
 The scripts in legacy/ are legacy scripts and only present for
 reference.
@@ -22,10 +22,20 @@ directory.
 ## REQUIREMENTS ##
 
 * Python 3.2 or greater.
-* The python-gnupg module.  
-** **IMPORTANT:** install with "pip3 install python-gnupg" as using "pip3 install gnupg" will install an incompatible fork of python-gnupg which breaks these scripts (and any other software utilising the original code).  
-** Yes, @isislovecruft (the author of the fork) should have renamed it to allow either module to be used instead of preventing the other, but arrogance knows no bounds it seems.  Presumably calling the fork gnupg2 was just too difficult.  
-** Note also that the new fork cannot be used as a library or library wrapper without losing the choice of license (there's a reason why people choose the BSD or LGPL licenses for some things).  
+* Current version of Twython.
+* Current version of Requests.
+** I recommend reinstalling Requests with the --upgrade flag after Twython is installed as Twython tends to install an older version.
+** As thos code depends on Python you can skip Requests and rely on the version installed by Twython by default.
+* Current version of PyCrypto
+
+
+### Installation
+
+Note: it may be necessary to use sudo on POSIX systems (including OS X):
+
+    pip3 install --upgrade twython
+    pip3 install --upgrade requests
+    pip3 install --upgrade pycrypto
 
 
 ## Contacting me
@@ -54,5 +64,6 @@ You can also visit my [website](http://www.adversary.org/) or [follow me on Twit
 The scripts generally take their parameters on the command line, but
 are also able to receive those parameters through interactive text
 prompts.  Generally I recommend the latter at least until you are
-familiar enough with the order to run them without those prompts.
+familiar enough with the order to run them without those prompts (or
+until I get around to updating them to use argparse).
 
