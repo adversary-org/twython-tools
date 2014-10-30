@@ -34,9 +34,10 @@ __author__ = "Ben McGinnes <ben@adversary.org>"
 __copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
 __license__ = "BSD"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
+import getpass
 import gnupg
 from os.path import expanduser
 
@@ -59,7 +60,7 @@ data1 = input("Enter Consumer Key (APP_KEY): ")
 data2 = input("Enter Consumer Secret (APP_SECRET): ")
 data3 = input("Enter Access Token (OAUTH_TOKEN): ")
 data4 = input("Enter Access Token Secret (OAUTH_TOKEN_SECRET): ")
-phrase = input("Enter the passphrase to secure Twitter access: ")
+phrase = getpass.getpass("Enter the passphrase to secure Twitter access: ")
 cipheropt = input("Enter symmetric encryption algorithm to use: ")
 file1 = "oauth1.txt.asc"
 file2 = "oauth2.txt.asc"
