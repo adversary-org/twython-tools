@@ -5,6 +5,8 @@ from Crypto.Protocol.KDF import PBKDF2
 from Crypto.Random.random import getrandbits
 from Crypto.Util import Counter
 
+simple_version = "Simplecrypt for Twython Tools."
+
 # see: http://www.daemonology.net/blog/2009-06-11-cryptographic-right-answers.html
 
 EXPANSION_COUNT = 250000
