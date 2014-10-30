@@ -6,7 +6,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.2
+# Version:  0.0.3
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -18,6 +18,9 @@
 # * Converted from scripts initially developed with Python 2.7.x.
 #
 # Options and notes:
+#
+# Updated to take greater advantage of foad.py, which is now much
+# better than it was when this was first written.
 #
 # Usage:  
 #
@@ -38,22 +41,33 @@ from config import *
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 l = len(sys.argv)
-p = subprocess.check_output
+p = subprocess.Popen
+foad = "foad.py"  # or set full path
+
+# wtf should be the type of fuck (-f / --fuck)
+# victim should be the foad.py relay (-r / --relay)
+# name should be the foad.py target (-n / --name)
+# sender should not be needed as it originates from a twitter account
+# extra should be the foad.py extra data (may include tags)
+# tags can also be separate from extra
 
 if l == 1:
     wtf = input("* Type of fuck to give: ")
     victim = input("Twitter username (optional): ")
     name = input("Name to use (optional): ")
+    extra = input("Extra comment (optional): ")
     tags = input("Append hashtags (optional, enter as they appear): ")
 elif l == 2:
     wtf = sys.argv[1]
     victim = input("Twitter username (optional): ")
     name = input("Name to use (optional): ")
+    extra = input("Extra comment (optional): ")
     tags = input("Append hashtags (optional, enter as they appear): ")
 elif l == 3:
     wtf = sys.argv[1]
     victim = sys.argv[2]
     name = input("Name to use (optional): ")
+    extra = input("Extra comment (optional): ")
     tags = input("Append hashtags (optional, enter as they appear): ")
 elif l >= 4:
     wtf = sys.argv[1]
@@ -62,26 +76,36 @@ elif l >= 4:
     for i in range(l - 3):
         nm.append(str(sys.argv[i + 3]))
     name = " ".join(nm)
+    extra = input("Extra comment (optional): ")
     tags = input("Append hashtags (optional, enter as they appear): ")
 else:
     wtf = input("* Type of fuck to give: ")
     victim = input("Twitter username (optional): ")
     name = input("Name to use (optional): ")
+    extra = input("Extra comment (optional): ")
     tags = input("Append hashtags (optional, enter as they appear): ")
 
-if len(victim) == 0 and len(name) == 0:
-    msg = p("%s -f %s" % (foad, wtf), shell=True).strip()
-elif len(victim) == 0 and len(name) >= 1:
+if len(victim) == 0 and len(name) == 0 and len(extra) == 0:
+    msg = p([foad, "-f", wtf], stdout=subprocess.PIPE).communicate()[0].strip()
+elif len(victim) == 0 and len(name) == 0 and len(extra) > 0:
+    msg = p([foad, "-f", wtf, "-e", extra], stdout=subprocess.PIPE).communicate()[0].strip()
+elif len(victim) == 0 and len(name) > 0 and len(extra) == 0:
     target = name
-    msg = p("%s -f %s -n %s" % (foad, wtf, target), shell=True).strip()
-elif len(victim) >= 1 and len(name) == 0:
+    msg = p([foad, "-f", wtf, "-n", target], stdout=subprocess.PIPE).communicate()[0].strip()
+elif len(victim) == 0 and len(name) > 0 and len(extra) > 0:
+    target = name
+    msg = p([foad, "-f", wtf, "-n", target, "-e", extra], stdout=subprocess.PIPE).communicate()[0].strip()
+elif len(victim) > 0 and len(name) == 0 and len(extra) == 0:
     target = "@" + victim
-    msg = p("%s -f %s -n %s" % (foad, wtf, target), shell=True).strip()
-elif len(victim) >= 1 and len(name) >= 1:
-    target1 = "@" + victim
-    target2 = name
-    fmsg = p("%s -f %s -n %s" % (foad, wtf, target2, shell=True).strip()
-    msg = "%s: %s" % (target1, fmsg)
+    msg = p([foad, "-f", wtf, "-n", target], stdout=subprocess.PIPE).communicate()[0].strip()
+elif len(victim) > 0 and len(name) == 0 and len(extra) > 0:
+    target = "@" + victim
+    msg = p([foad, "-f", wtf, "-n", target, "-e", extra], stdout=subprocess.PIPE).communicate()[0].strip()
+elif len(victim) > 0 and len(name) > 0 and len(extra) == 0:
+    msg = p([foad, "-f", wtf, "-n", name, "-r", victim], stdout=subprocess.PIPE).communicate()[0].strip()
+elif len(victim) > 0 and len(name) > 0 and len(extra) > 0:
+    msg = p([foad, "-f", wtf, "-n", name, "-r", victim, "-e", extra], stdout=subprocess.PIPE).communicate()[0].strip()
+            
 
 if len(msg) + len(tags) <= 135:
     mesg = msg +" "+tags
