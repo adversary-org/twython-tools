@@ -7,7 +7,7 @@ from Crypto.Util import Counter
 
 # see: http://www.daemonology.net/blog/2009-06-11-cryptographic-right-answers.html
 
-EXPANSION_COUNT = 250000
+EXPANSION_COUNT = 100000
 AES_KEY_LEN = 256
 SALT_LEN = (128, 256)
 HASH = SHA256
