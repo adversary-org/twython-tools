@@ -6,7 +6,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.5
+# Version:  0.0.6
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -33,13 +33,14 @@ __author__ = "Ben McGinnes <ben@adversary.org>"
 __copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
 __license__ = "BSD"
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 
 import binascii
 import getpass
 import hashlib
+import sys
 
 from simplecrypt import encrypt, decrypt
 
@@ -63,7 +64,18 @@ data.append(input("Enter Consumer Secret (APP_SECRET): "))
 data.append(input("Enter Access Token (OAUTH_TOKEN): "))
 data.append(input("Enter Access Token Secret (OAUTH_TOKEN_SECRET): "))
 
-password = getpass.getpass("Enter the passphrase to secure Twitter access: ")
+try:
+    password = getpass.getpass("Enter the passphrase to secure Twitter access: ")
+except getpass.GetPassWarning:
+    print("Your current terminal may display your password.  You will be prompted to continue or not.")
+    cont = input("Do you wish to continue (yes/no): ")
+    if cont.lower() == "yes" or "y":
+        password = getpass.getpass("Enter the passphrase to secure Twitter access: ")
+    else:
+        print("You should use a normal xterm to run this program.")
+        print("Exiting.")
+        sys.exit()
+
 phrase = hashlib.sha256(password.encode("utf-8")).hexdigest()
 del password
 

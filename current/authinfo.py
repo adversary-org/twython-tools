@@ -6,7 +6,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.5
+# Version:  0.0.6
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -34,23 +34,34 @@ __copyright__ = "Copyright © Benjamin D. McGinnes, 2013-2014"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
 __copyrightu__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
 __license__ = "BSD"
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 
 import binascii
 import getpass
 import hashlib
+import sys
 
 from simplecrypt import encrypt, decrypt
 
-files = ["oauth1.txt.asc", "oauth2.txt.asc", "oauth3.txt.asc", "oauth4.txt.asc"]
+try:
+    password = getpass.getpass("Enter the passphrase to authorise access to Twitter: ")
+except getpass.GetPassWarning:
+    print("Your current terminal may display your password.  You will be prompted to continue or not.")
+    cont = input("Do you wish to continue (yes/no): ")
+    if cont.lower() == "yes" or "y":
+        password = getpass.getpass("Enter the passphrase to authorise access to Twitter: ")
+    else:
+        print("You should use a normal xterm to run this program.")
+        print("Exiting.")
+        sys.exit()
 
-password = getpass.getpass("Enter the passphrase to authorise access to Twitter: ")
 phrase = hashlib.sha256(password.encode("utf-8")).hexdigest()
 del password
 torcon = input("Will you be using Tor to access Twitter (Y/N): ")
 
+files = ["oauth1.txt.asc", "oauth2.txt.asc", "oauth3.txt.asc", "oauth4.txt.asc"]
 authdata = []
 
 for i in range(4):
