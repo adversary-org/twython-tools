@@ -6,7 +6,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.1
+# Version:  0.0.5
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -16,8 +16,7 @@
 #
 # * Python 3.2 or later (developed with Python 3.4.x)
 # * Converted from scripts initially developed with Python 2.7.x.
-# * python-gnupg 0.3.6 or later.
-# * GNU Privacy Guard (GnuPG, GPG) 1.4.x or 2.0.x).
+# * A current version of PyCrypto.
 # * Tor service with SOCKS and proxy (optional).
 #
 # Options and notes:
@@ -34,44 +33,47 @@ __author__ = "Ben McGinnes <ben@adversary.org>"
 __copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
 __license__ = "BSD"
-__version__ = "0.0.1"
+__version__ = "0.0.5"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
-import gnupg
-from os.path import expanduser
 
-userdir = expanduser("~")
-gpg_home = userdir+"/.gnupg"
-gpg = gnupg.GPG(gnupghome=gpg_home)
+import binascii
+import getpass
+import hashlib
+
+from simplecrypt import encrypt, decrypt
 
 print("""
 The passphrase set with this script must be used with the authinfo.py
 script or added to that script (the latter is *much* less secure).
 
-Leaving the cipher option blank will use the default or preferred
-symmetric cipher.  Otherwise enter the symmetric cipher you wish to
-use (e.g. TWOFISH, AES256, CAMELLIA256, etc.).
+The password or passphrase is encrypted with 256-bit AES utiliing as
+SHA-256 hash implemented with PyCrypto and SimpleCrypt.  SimpleCrypt
+is included with this software, but you must install PyCrypto
+separately (i.e. with pip).
 
-See "gpg --version" output for available symmetric ciphers.
 """)
 
-data1 = input("Enter Consumer Key (APP_KEY): ")
-data2 = input("Enter Consumer Secret (APP_SECRET): ")
-data3 = input("Enter Access Token (OAUTH_TOKEN): ")
-data4 = input("Enter Access Token Secret (OAUTH_TOKEN_SECRET): ")
-phrase = input("Enter the passphrase to secure Twitter access: ")
-cipheropt = input("Enter symmetric encryption algorithm to use: ")
-file1 = "oauth1.txt.asc"
-file2 = "oauth2.txt.asc"
-file3 = "oauth3.txt.asc"
-file4 = "oauth4.txt.asc"
+files = ["oauth1.txt.asc", "oauth2.txt.asc", "oauth3.txt.asc", "oauth4.txt.asc"]
 
-if cipheropt == "":
-    cipher = True
-else:
-    cipher = cipheropt.upper()
+data = []
 
-gpg.encrypt(data1, None, passphrase=phrase, symmetric=cipher, output=file1)
-gpg.encrypt(data2, None, passphrase=phrase, symmetric=cipher, output=file2)
-gpg.encrypt(data3, None, passphrase=phrase, symmetric=cipher, output=file3)
-gpg.encrypt(data4, None, passphrase=phrase, symmetric=cipher, output=file4)
+data.append(input("Enter Consumer Key (APP_KEY): "))
+data.append(input("Enter Consumer Secret (APP_SECRET): "))
+data.append(input("Enter Access Token (OAUTH_TOKEN): "))
+data.append(input("Enter Access Token Secret (OAUTH_TOKEN_SECRET): "))
+
+password = getpass.getpass("Enter the passphrase to secure Twitter access: ")
+phrase = hashlib.sha256(password.encode("utf-8")).hexdigest()
+del password
+
+for i in range(4):
+    afile = open(files[i], "w")
+    crypted = encrypt(phrase, data[i])
+    ciphertext = binascii.hexlify(crypted)
+    afile.write(ciphertext.decode("utf-8"))
+    afile.close()
+
+del phrase
+del data
+
