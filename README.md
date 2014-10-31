@@ -4,12 +4,18 @@ Twython Tools
 Command line scripts and tools for implementing Twython functions.
 
 Incorporates functions from other Python libraries and modules,
-including twython, requests, PyCrypto, and foad.py.
+including twython, requests, PyCrypto, simplecrypt (included), and
+foad.py (optional).
 
 Use of Tor is optional.
 
-The scripts in legacy/ are legacy scripts and only present for
-reference.
+GPG is no longer used for encrypting the OAuth data.  There is, of
+course, nothing wrong with GPG itself, but there is plenty of concern
+with the impending conflict between the python-gnupg package and the
+more recent fork.
+
+The scripts in legacy/ are legacy Python 2 scripts and only present
+for reference.
 
 The scripts in current/ are what I use and are actively maintained.
 
