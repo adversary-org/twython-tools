@@ -47,11 +47,13 @@ subpipe = subprocess.PIPE
 # foad = "foad.py"  # should already be set in config.py
 
 # wtf should be the type of fuck (-f / --fuck)
-# victim should be the foad.py relay (-r / --relay)
+# relay should be the foad.py relay (-r / --relay)
 # name should be the foad.py target (-n / --name)
+# target should be the Twitter username, sometimes the name or the relay.
 # sender should not be needed as it originates from a twitter account
 # extra should be the foad.py extra data (may include tags)
-# tags can also be separate from extra
+# tags can also be separate from extra, these are appended after other
+# rules are followed.
 
 parser = argparse.ArgumentParser(
     prog="foader.py"
@@ -134,7 +136,10 @@ if len(wtf) == 0:
     fuck = input("You must enter a type of fuck to give, enter it now: ")
     wtf = fuck.lower()
 
-if delivery == "reply" or "open reply" or "public reply" and args.status is None and args.user is None:
+if delivery == "reply" or "open reply" or "public reply" and args.status is None and args.user is None and args.relay is not None:
+    target = relay
+    status = input("Enter the status ID of the tweet being replied to: ")
+elif delivery == "reply" or "open reply" or "public reply" and args.status is None and args.user is None and args.relay is None:
     target = input("Enter the username of the author of the tweet being replied to: ")
     status = input("Enter the status ID of the tweet being replied to: ")
 elif delivery == "reply" or "open reply" or "public reply" and args.status is None:
@@ -147,14 +152,79 @@ if block > 0 and args.user is None:
 # different types of foad messages to send (tags not included):
 
 if delivery == "reply" or "open reply" or "public reply":
-    # Enter reply stuff here.
-    # Open/public replies, check for username/@ symbol at beginning
-    # and prepend a full stop (period) so it appears in regular
-    # timeline.
-    if name > 0 and target != name:
+    if len(name) == 0 and len(target) > 0 and len(extra) == 0 and len(relay) == 0:
+        m = subpope([foad, "-f", wtf, "-n", target], stdout=subpipe).communicate()[0].strip()
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target != name and len(extra) == 0 and len(relay) == 0:
         f = subpope([foad, "-f", wtf, "-n", name], stdout=subpipe).communicate()[0].strip()
         m = " ".join(target, f)
-        if delivery == "open reply" or "public reply":
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) == 0 and len(target) > 0 and len(extra) > 0 and len(relay) == 0:
+        m = subpope([foad, "-f", wtf, "-n", target, "-e", extra], stdout=subpipe).communicate()[0].strip()
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) == 0 and len(target) > 0 and len(extra) == 0 and len(relay) > 0:
+        m = subpope([foad, "-f", wtf, "-n", target, "-r", relay], stdout=subpipe).communicate()[0].strip()
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) == 0 and len(target) > 0 and len(extra) > 0 and len(relay) > 0:
+        m = subpope([foad, "-f", wtf, "-n", target, "-e", extra, "-r", relay], stdout=subpipe).communicate()[0].strip()
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target == name and len(extra) > 0 and len(relay) == 0:
+        m = subpope([foad, "-f", wtf, "-n", target, "-e", extra], stdout=subpipe).communicate()[0].strip()
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target == name and len(extra) == 0 and len(relay) > 0:
+        m = subpope([foad, "-f", wtf, "-n", target, "-r", relay], stdout=subpipe).communicate()[0].strip()
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target == name and len(extra) > 0 and len(relay) > 0:
+        m = subpope([foad, "-f", wtf, "-n", target, "-e", extra, "-r", relay], stdout=subpipe).communicate()[0].strip()
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target != name and len(extra) > 0 and len(relay) == 0:
+        f = subpope([foad, "-f", wtf, "-n", name, "-e", extra], stdout=subpipe).communicate()[0].strip()
+        m = " ".join(target, f)
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target != name and len(extra) == 0 and len(relay) > 0:
+        f = subpope([foad, "-f", wtf, "-n", name, "-r", relay], stdout=subpipe).communicate()[0].strip()
+        m = " ".join(target, f)
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target != name and len(extra) > 0 and len(relay) > 0:
+        f = subpope([foad, "-f", wtf, "-n", name, "-e", extra, "-r", relay], stdout=subpipe).communicate()[0].strip()
+        m = " ".join(target, f)
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and len(relay) > 0 and target == relay and len(extra) == 0:
+        m = subpope([foad, "-f", wtf, "-n", name, "-r", target], stdout=subpipe).communicate()[0].strip()
+        if delivery == "open reply" or "public reply" and m.startswith("@"):
             msg = "." + m
         else:
             msg = m
@@ -163,6 +233,7 @@ elif delivery == "dm" or "direct":
 else:
     # Enter normal tweet rules here (the default).
     # Include something like open/public replies where necessary.
+    # The latter is for picking fights.
 
 if len(msg) + len(tags) <= 135:
     mesg = msg +" "+tags
