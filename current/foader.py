@@ -125,9 +125,9 @@ else:
     block = args.block.lower()
 
 if args.status is None:
-    status = ""
+    stat = ""
 else:
-    status = args.status
+    stat = args.status
 
 # Sometimes users forget to include important data, prompt for that
 # here:
@@ -138,12 +138,12 @@ if len(wtf) == 0:
 
 if delivery == "reply" or "open reply" or "public reply" and args.status is None and args.user is None and args.relay is not None:
     target = relay
-    status = input("Enter the status ID of the tweet being replied to: ")
+    stat = input("Enter the status ID of the tweet being replied to: ")
 elif delivery == "reply" or "open reply" or "public reply" and args.status is None and args.user is None and args.relay is None:
     target = input("Enter the username of the author of the tweet being replied to: ")
-    status = input("Enter the status ID of the tweet being replied to: ")
+    stat = input("Enter the status ID of the tweet being replied to: ")
 elif delivery == "reply" or "open reply" or "public reply" and args.status is None:
-    status = input("Enter the status ID of the tweet being replied to: ")
+    stat = input("Enter the status ID of the tweet being replied to: ")
 
 if block > 0 and args.user is None:
     target = input("You must specify the username of the account you wish to block or report: ")
@@ -274,25 +274,25 @@ elif block == "mute" and delivery == "dm" or "direct":
         print(e)
 elif block == "block" and delivery == "reply" or "open reply" or "public reply":
     try:
-        twitter.update_status(status=message, in_reply_to_status_id=status)
+        twitter.update_status(status=message, in_reply_to_status_id=stat)
         twitter.create_block(screen_name=target)
     except TwythonError as e:
         print(e)
 elif block == "spam" or "spammer" and delivery == "reply" or "open reply" or "public reply":
     try:
-        twitter.update_status(status=message, in_reply_to_status_id=status)
+        twitter.update_status(status=message, in_reply_to_status_id=stat)
         twitter.report_spam(screen_name=victim)
     except TwythonError as e:
         print(e)
 elif block == "unfollow" and delivery == "reply" or "open reply" or "public reply":
     try:
-        twitter.update_status(status=message, in_reply_to_status_id=status)
+        twitter.update_status(status=message, in_reply_to_status_id=stat)
         twitter.destroy_friendship(screen_name=target)
     except TwythonError as e:
         print(e)
 elif block == "mute" and delivery == "reply" or "open reply" or "public reply":
     try:
-        twitter.update_status(status=message, in_reply_to_status_id=status)
+        twitter.update_status(status=message, in_reply_to_status_id=stat)
         #mute command
     except TwythonError as e:
         print(e)
@@ -327,7 +327,7 @@ elif delivery == "dm" or "direct":
         print(e)
 elif delivery == "reply" or "open reply" or "public reply":
     try:
-        twitter.update_status(status=message, in_reply_to_status_id=status)
+        twitter.update_status(status=message, in_reply_to_status_id=stat)
     except TwythonError as e:
         print(e)
 else:
