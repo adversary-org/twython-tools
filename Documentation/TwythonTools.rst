@@ -18,6 +18,11 @@ correct path will need to be set if foad.py is added.  Then the
 gen-auth.py script needs to be run to set the GPG encrypted
 authentication codes obtained from twitter.com.
 
+If modifying the rounds or counter in SimpleCrypt, which is currently
+set to 50,000 (and has a default of 10,000 with the module on PyPI),
+the gen-auth.py script will need to be run again as changing that
+parameter is enough to make the decryption process fail.
+
 
 Unless otherwise specified, **DO NOT** include the @ symbol in a Twitter
 username, the scripts usually add these if they are required.  Rare
