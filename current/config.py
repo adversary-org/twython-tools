@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from authinfo import APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET
 from contype import torcon, client_args
+from authinfo import APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET
 from os.path import expanduser
 
 homedir = expanduser("~")
