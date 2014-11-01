@@ -6,7 +6,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.8
+# Version:  0.0.9
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -32,30 +32,16 @@ __copyright__ = "Copyright © Benjamin D. McGinnes, 2013-2014"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
 __copyrightu__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
 __license__ = "BSD"
-__version__ = "0.0.8"
+__version__ = "0.0.9"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 
 import binascii
 import getpass
 import hashlib
-#import os
-#import os.path
-#import subprocess
 import sys
-#import tempfile
 
 from simplecrypt import encrypt, decrypt
-
-#if sys.platform == "darwin":
-#    srm = "/usr/bin/srm"
-#else:
-#    if os.path.exists("/usr/bin/srm") is True:
-#        srm = "/usr/bin/srm"
-#    elif os.path.exists("/usr/local/bin/srm") is True:
-#        srm = "/usr/local/bin/srm"
-#    else:
-#        srm = ""
 
 try:
     password = getpass.getpass("Enter the passphrase to authorise access to Twitter: ")
@@ -81,37 +67,10 @@ del phrase
 authdata = plaintext.decode("utf-8")
 
 exec(authdata)
-
-#oauth = tempfile.mkstemp(suffix=".py", prefix="oauth", dir=".", text=True)
-#
-#for f in os.listdir("."):
-#    if f.endswith(".py") and f.startswith("oauth"):
-#        oauthc = f[0:len(f)-3]
-
-#bfile = open(oauth[1], "w")
-#bfile.write(authdata)
-#bfile.close()
-
 del authdata
-from oauth import APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET
 
-#if len(srm) > 0 and sys.platform == "darwin":
-#    secdel = subprocess.Popen([srm, "-fmzv", oauth[1]],
-#                              stdout=subprocess.PIPE).communicate()
-#    sdm = secdel[0].decode("utf-8")
-#elif len(srm) > 0 and sys.platform == "linux" or "linux2":
-#    secdel = subprocess.Popen([srm, "-fDv", oauth[1]],
-#                              stdout=subprocess.PIPE).communicate()
-#    sdm = secdel[0].decode("utf-8")
-#elif len(srm) > 0 and sys.platform != "darwin" or "linux" or "linux2":
-#    secdel = subprocess.Popen([srm, "-fv", oauth[1]],
-#                              stdout=subprocess.PIPE).communicate()
-#    sdm = secdel[0].decode("utf-8")
-#elif len(srm) == 0 and sys.platform != "win32":
-#    secdel = os.remove(oauth[1])
-#    sdm = "Installing srm is recommended for this system, use your package manager."
-#else:
-#    secdel = os.remove(oauth[1])
-#    sdm = "Using a system with access to srm is recommended."
+APP_KEY = oauth.APP_KEY
+APP_SECRET = oauth.APP_SECRET
+OAUTH_TOKEN = oauth.OAUTH_TOKEN
+OAUTH_TOKEN_SECRET = oauth.OAUTH_TOKEN_SECRET
 
-# print(sdm)
