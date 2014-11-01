@@ -39,19 +39,24 @@ twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 l = len(sys.argv)
 p = subprocess.check_output
+subpope = subprocess.Popen
+subpipe = subprocess.PIPE
 
 if l == 1:
     wtf = input("* Type of fuck to give: ")
     target = input("* Twitter username: ")
     name = input("Name to use (optional): ")
+    extra = input("Extra comment (optional): ")
 elif l == 2:
     wtf = sys.argv[1]
     target = input("* Twitter username: ")
     name = input("Name to use (optional): ")
+    extra = input("Extra comment (optional): ")
 elif l == 3:
     wtf = sys.argv[1]
     target = sys.argv[2]
     name = input("Name to use (optional): ")
+    extra = input("Extra comment (optional): ")
 elif l >= 4:
     wtf = sys.argv[1]
     target = sys.argv[2]
@@ -63,14 +68,21 @@ else:
     wtf = input("* Type of fuck to give: ")
     target = input("* Twitter username: ")
     name = input("Name to use (optional): ")
+    extra = input("Extra comment (optional): ")
 
-if len(name) == 0:
-    name = target
+if len(name) == 0 and len(extra) == 0:
+    mesg = subpope([foad, "-f", wtf], stdout=subpipe).communicate()[0].strip()
+elif len(name) > 0 and len(extra) == 0:
+    mesg = subpope([foad, "-f", wtf, "-n", name], stdout=subpipe).communicate()[0].strip()
+elif len(name) == 0 and len(extra) > 0:
+    mesg = subpope([foad, "-f", wtf, "-e", extra], stdout=subpipe).communicate()[0].strip()
+elif len(name) > 0 and len(extra) > 0:
+    mesg = subpope([foad, "-f", wtf, "-n", name, "-e", extra], stdout=subpipe).communicate()[0].strip()
 
-mesg = p("%s -f %s -n %s" % (foad, wtf, name), shell=True).strip()
-print(mesg.decode("utf-8", "strict"))
+msg = mesg.decode("utf-8", "strict")
+print(msg)
 
 try:
-    twitter.send_direct_message(screen_name=target, text=mesg)
+    twitter.send_direct_message(screen_name=target, text=msg)
 except TwythonError as e:
     print(e)

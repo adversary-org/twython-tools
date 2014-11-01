@@ -6,7 +6,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.3
+# Version:  0.0.4
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -30,7 +30,7 @@ __author__ = "Ben McGinnes <ben@adversary.org>"
 __copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
 __license__ = "BSD"
-__version__ = "0.0.2"
+__version__ = "0.0.4"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import subprocess
@@ -41,8 +41,9 @@ from config import *
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 l = len(sys.argv)
-p = subprocess.Popen
-foad = "foad.py"  # or set full path
+subpope = subprocess.Popen
+subpipe = subprocess.PIPE
+# foad = "foad.py"  # should already be set in config.py
 
 # wtf should be the type of fuck (-f / --fuck)
 # victim should be the foad.py relay (-r / --relay)
@@ -86,25 +87,25 @@ else:
     tags = input("Append hashtags (optional, enter as they appear): ")
 
 if len(victim) == 0 and len(name) == 0 and len(extra) == 0:
-    msg = p([foad, "-f", wtf], stdout=subprocess.PIPE).communicate()[0].strip()
+    msg = subpope([foad, "-f", wtf], stdout=subpipe).communicate()[0].strip()
 elif len(victim) == 0 and len(name) == 0 and len(extra) > 0:
-    msg = p([foad, "-f", wtf, "-e", extra], stdout=subprocess.PIPE).communicate()[0].strip()
+    msg = subpope([foad, "-f", wtf, "-e", extra], stdout=subpipe).communicate()[0].strip()
 elif len(victim) == 0 and len(name) > 0 and len(extra) == 0:
     target = name
-    msg = p([foad, "-f", wtf, "-n", target], stdout=subprocess.PIPE).communicate()[0].strip()
+    msg = subpope([foad, "-f", wtf, "-n", target], stdout=subpipe).communicate()[0].strip()
 elif len(victim) == 0 and len(name) > 0 and len(extra) > 0:
     target = name
-    msg = p([foad, "-f", wtf, "-n", target, "-e", extra], stdout=subprocess.PIPE).communicate()[0].strip()
+    msg = subpope([foad, "-f", wtf, "-n", target, "-e", extra], stdout=subpipe).communicate()[0].strip()
 elif len(victim) > 0 and len(name) == 0 and len(extra) == 0:
     target = "@" + victim
-    msg = p([foad, "-f", wtf, "-n", target], stdout=subprocess.PIPE).communicate()[0].strip()
+    msg = subpope([foad, "-f", wtf, "-n", target], stdout=subpipe).communicate()[0].strip()
 elif len(victim) > 0 and len(name) == 0 and len(extra) > 0:
     target = "@" + victim
-    msg = p([foad, "-f", wtf, "-n", target, "-e", extra], stdout=subprocess.PIPE).communicate()[0].strip()
+    msg = subpope([foad, "-f", wtf, "-n", target, "-e", extra], stdout=subpipe).communicate()[0].strip()
 elif len(victim) > 0 and len(name) > 0 and len(extra) == 0:
-    msg = p([foad, "-f", wtf, "-n", name, "-r", victim], stdout=subprocess.PIPE).communicate()[0].strip()
+    msg = subpope([foad, "-f", wtf, "-n", name, "-r", victim], stdout=subpipe).communicate()[0].strip()
 elif len(victim) > 0 and len(name) > 0 and len(extra) > 0:
-    msg = p([foad, "-f", wtf, "-n", name, "-r", victim, "-e", extra], stdout=subprocess.PIPE).communicate()[0].strip()
+    msg = subpope([foad, "-f", wtf, "-n", name, "-r", victim, "-e", extra], stdout=subpipe).communicate()[0].strip()
             
 
 if len(msg) + len(tags) <= 135:
