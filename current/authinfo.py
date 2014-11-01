@@ -90,17 +90,34 @@ if torcon.lower() in negative:
             "User-Agent": "Twython"
             }
         }
+    print("No Tor configuration set, direct connection enabled.")
 elif torcon.lower() in affirmative:
-    client_args = {
-        "verify": True,
-        "headers": {
-            "User-Agent": "Twython Over Tor"
-            },
-        "proxies": {
-            "http": "http://127.0.0.1:8118",
-            "https": "https://127.0.0.1:8118",
+    tortype = input("Will you be using the Tor Browser Bundle: ")
+    bundle = ["Y", "yes", "y", "1", "true", "aye", "bundle", 1, True]
+    if tortype.lower() in bundle:
+        client_args {
+            "verify": True,
+            "headers": {
+                "User-Agent": "Twython Over Tor"
+                },
+            "proxies": {
+                "http": "http://127.0.0.1:9150",
+                "https": "https://127.0.0.1:9150",
+                }
             }
-        }
+        print("Tor configuration set on localhost and port 9150")
+    else:
+        client_args = {
+            "verify": True,
+            "headers": {
+                "User-Agent": "Twython Over Tor"
+                },
+            "proxies": {
+                "http": "http://127.0.0.1:9050",
+                "https": "https://127.0.0.1:9050",
+                }
+            }
+        print("Tor configuration set on localhost and port 9050")
 else:
     client_args = {
         "verify": True,
@@ -108,3 +125,4 @@ else:
             "User-Agent": "Twython"
             }
         }
+    print("No Tor configuration set, direct connection enabled.")
