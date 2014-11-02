@@ -84,7 +84,7 @@ parser.add_argument("-n", "--name", help="Name of recipient, more than one word 
 parser.add_argument("-r", "--relay", help="Used to specify a third party to whom a message is to be delivered to by the target.", action="store", required=False)
 parser.add_argument("-e", "--extra", help="Additional comment to append to output, more than one word must be in quotation marks.  Sometimes used to enhance an existing response rather than append text.", action="store", required=False)
 parser.add_argument("-t", "--tags", help="Hashtags to append to a tweet, not normally used with DMs.", action="store", required=False)
-parser.add_argument("-d", "--delivery", help="Used to specify a delivery method.  Delivery methods are: tweet, reply, \"open reply\" and dm.  The default is tweet.", action="store", required=False)
+parser.add_argument("-d", "--delivery", help="Used to specify a delivery method.  Delivery methods are: tweet, broadcast, pony express, courier, reply, \"open reply\" and dm.  The default is tweet, broadcast is a tweet addressed to someone such that everyone can read it, pony express indicates the target is relay but also a broadcast, courier indicates the target is a relay but without a broadcast.", action="store", required=False)
 parser.add_argument("-b", "--block", help="Used to specify a type of user blocking (sometimes merely muting or unfollowing).  Block types are: block, spam, mute and unfollow.  The default is none, spam is report for spam and block, mute is not yet active (except through my mutes branch of Twython).", action="store", required=False)
 parser.add_argument("-s", "--status", help="Used to specify the status ID a tweet is in response to.  Only called in conjunction with the reply delivery method.", action="store", required=False)
 
@@ -238,11 +238,104 @@ if delivery == "reply" or "open reply" or "public reply":
         else:
             msg = m
 elif delivery == "dm" or "direct":
-    # Enter DM stuff here.
+    # With public tweets/replies target might be interchangable for
+    # name, but here it is used to direct a private message separately,
+    # allowing the shorter forms.
+    if len(name) == 0 and len(target) > 0 and len(extra) == 0 and len(relay) == 0:
+        msg = subpope([foad, "-f", wtf], stdout=subpipe).communicate()[0].strip()
+    elif len(name) > 0 and len(target) > 0 and len(extra) == 0 and len(relay) == 0:
+        msg = subpope([foad, "-f", wtf, "-n", name], stdout=subpipe).communicate()[0].strip()
+    elif len(name) == 0 and len(target) > 0 and len(extra) > 0 and len(relay) == 0:
+        msg = subpope([foad, "-f", wtf, "-n", name, "-e", extra], stdout=subpipe).communicate()[0].strip()
+    elif len(name) == 0 and len(target) > 0 and len(extra) == 0 and len(relay) > 0:
+        msg = subpope([foad, "-f", wtf, "-n", name, "-r", relay], stdout=subpipe).communicate()[0].strip()
+    elif len(name) == 0 and len(target) > 0 and len(extra) > 0 and len(relay) > 0:
+        msg = subpope([foad, "-f", wtf, "-n", name, "-e", extra, "-r", relay], stdout=subpipe).communicate()[0].strip()
 else:
-    # Enter normal tweet rules here (the default).
-    # Include something like open/public replies where necessary.
-    # The latter is for picking fights.
+    if len(name) == 0 and len(target) > 0 and len(extra) == 0 and len(relay) == 0:
+        m = subpope([foad, "-f", wtf, "-n", target], stdout=subpipe).communicate()[0].strip()
+        if delivery == "broadcast" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target > 0 and target != name and len(extra) == 0 and len(relay) == 0:
+        f = subpope([foad, "-f", wtf, "-n", name], stdout=subpipe).communicate()[0].strip()
+        m = " ".join(target, f)
+        if delivery == "broadcast" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) == 0 and len(target) > 0 and len(extra) > 0 and len(relay) == 0:
+        m = subpope([foad, "-f", wtf, "-n", target, "-e", extra], stdout=subpipe).communicate()[0].strip()
+        if delivery == "broadcast" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and len(target) > 0 and len(extra) == 0 and len(relay) > 0:
+        f = subpope([foad, "-f", wtf, "-n", name, "-r", relay], stdout=subpipe).communicate()[0].strip()
+        m = " ".join(target, f)
+        if delivery == "broadcast" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and len(target) > 0 and len(extra) == 0 and len(relay) > 0 and delivery == "express" or "pony" or "pony express" or "courier":
+        m = subpope([foad, "-f", wtf, "-n", name, "-r", target], stdout=subpipe).communicate()[0].strip()
+        if f.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and len(target) > 0 and len(extra) > 0 and len(relay) > 0 and delivery == "express" or "pony" or "pony express" or "courier":
+        m = subpope([foad, "-f", wtf, "-n", name, "-e", extra, "-r", target], stdout=subpipe).communicate()[0].strip()
+        if delivery == "broadcast" or "express" or "pony" or "pony express" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target == name and len(extra) > 0 and len(relay) == 0:
+        m = subpope([foad, "-f", wtf, "-n", target, "-e", extra], stdout=subpipe).communicate()[0].strip()
+        if delivery == "broadcast" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target == name and len(extra) == 0 and len(relay) > 0:
+        m = subpope([foad, "-f", wtf, "-n", target, "-r", relay], stdout=subpipe).communicate()[0].strip()
+        if delivery == "broadcast" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target == name and len(extra) > 0 and len(relay) > 0:
+        m = subpope([foad, "-f", wtf, "-n", target, "-e", extra, "-r", relay], stdout=subpipe).communicate()[0].strip()
+        if delivery == "broadcast" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target != name and len(extra) > 0 and len(relay) == 0:
+        f = subpope([foad, "-f", wtf, "-n", name, "-e", extra], stdout=subpipe).communicate()[0].strip()
+        m = " ".join(target, f)
+        if delivery == "broadcast" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target != name and len(extra) == 0 and len(relay) > 0:
+        f = subpope([foad, "-f", wtf, "-n", name, "-r", relay], stdout=subpipe).communicate()[0].strip()
+        m = " ".join(target, f)
+        if delivery == "broadcast" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and target != name and len(extra) > 0 and len(relay) > 0:
+        f = subpope([foad, "-f", wtf, "-n", name, "-e", extra, "-r", relay], stdout=subpipe).communicate()[0].strip()
+        m = " ".join(target, f)
+        if delivery == "broadcast" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+    elif len(name) > 0 and len(relay) > 0 and target == relay and len(extra) == 0:
+        m = subpope([foad, "-f", wtf, "-n", name, "-r", target], stdout=subpipe).communicate()[0].strip()
+        if delivery == "broadcast" and m.startswith("@"):
+            msg = "." + m
+        else:
+            msg = m
+
 
 if len(msg) + len(tags) <= 135:
     mesg = msg +" "+tags
