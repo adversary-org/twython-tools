@@ -85,7 +85,7 @@ parser.add_argument("-r", "--relay", help="Used to specify a third party to whom
 parser.add_argument("-e", "--extra", help="Additional comment to append to output, more than one word must be in quotation marks.  Sometimes used to enhance an existing response rather than append text.", action="store", required=False)
 parser.add_argument("-t", "--tags", help="Hashtags to append to a tweet, not normally used with DMs.", action="store", required=False)
 parser.add_argument("-d", "--delivery", help="Used to specify a delivery method.  Delivery methods are: tweet, reply, \"open reply\" and dm.  The default is tweet.", action="store", required=False)
-parser.add_argument("-b", "--block", help="Used to specify a type of user blocking (sometimes merely muting or unfollowing).  Block types are: block, spam, mute and unfollow.  The default is none, spam is report for spam and block, mute is not yet active (not supported by Twython yet).", action="store", required=False)
+parser.add_argument("-b", "--block", help="Used to specify a type of user blocking (sometimes merely muting or unfollowing).  Block types are: block, spam, mute and unfollow.  The default is none, spam is report for spam and block, mute is not yet active (except through my mutes branch of Twython).", action="store", required=False)
 parser.add_argument("-s", "--status", help="Used to specify the status ID a tweet is in response to.  Only called in conjunction with the reply delivery method.", action="store", required=False)
 
 args = parser.parse_args()
@@ -278,9 +278,7 @@ elif block == "unfollow" and delivery == "dm" or "direct":
 elif block == "mute" and delivery == "dm" or "direct":
     try:
         twitter.send_direct_message(screen_name=target, text=message)
-        # mute command - to be added when mute added to Twython
-        # if my pull request is accepted it should be:
-        # twitter.create_mute(screen_name=target)
+        twitter.create_mute(screen_name=target)
     except TwythonError as e:
         print(e)
 elif block == "block" and delivery == "reply" or "open reply" or "public reply":
@@ -304,9 +302,7 @@ elif block == "unfollow" and delivery == "reply" or "open reply" or "public repl
 elif block == "mute" and delivery == "reply" or "open reply" or "public reply":
     try:
         twitter.update_status(status=message, in_reply_to_status_id=stat)
-        # mute command - to be added when mute added to Twython
-        # if my pull request is accepted it should be:
-        # twitter.create_mute(screen_name=target)
+        twitter.create_mute(screen_name=target)
     except TwythonError as e:
         print(e)
 elif block == "block" and delivery != "dm" or "direct" or "reply" or "open reply" or "public reply":
@@ -330,9 +326,7 @@ elif block == "unfollow" and delivery != "dm" or "direct" or "reply" or "open re
 elif block == "mute" and delivery != "dm" or "direct" or "reply" or "open reply" or "public reply":
     try:
         twitter.update_status(status=message)
-        # mute command - to be added when mute added to Twython
-        # if my pull request is accepted it should be:
-        # twitter.create_mute(screen_name=target)
+        twitter.create_mute(screen_name=target)
     except TwythonError as e:
         print(e)
 elif delivery == "dm" or "direct":
