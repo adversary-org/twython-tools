@@ -46,14 +46,23 @@ subpope = subprocess.Popen
 subpipe = subprocess.PIPE
 # foad = "foad.py"  # should already be set in config.py
 
-# wtf should be the type of fuck (-f / --fuck)
-# relay should be the foad.py relay (-r / --relay)
-# name should be the foad.py target (-n / --name)
+# wtf should be the type of fuck (-f / --fuck).
+# name should be the foad.py target (-n / --name).
+# relay should be the foad.py relay (-r / --relay).
 # target should be the Twitter username, sometimes the name or the relay.
-# sender should not be needed as it originates from a twitter account
-# extra should be the foad.py extra data (may include tags)
+# sender should not be needed as it originates from a twitter account.
+# extra should be the foad.py extra data (may include tags).
+# stat (-s / --status) is the status ID of tweets replied to, included
+# during transmission, not message preparation.
 # tags can also be separate from extra, these are appended after other
 # rules are followed.
+# Does not currently support the following foad.py flags: sender,
+# options, version, append and prepend.
+# Will not support options and version (or foad.py's help), but the
+# others might be added in the future if there is call for it.  There
+# probably won't be because append and prepend can be implemented in
+# message construction and sender is effectively covered by the
+# account.
 
 parser = argparse.ArgumentParser(
     prog="foader.py"
@@ -269,7 +278,7 @@ elif block == "unfollow" and delivery == "dm" or "direct":
 elif block == "mute" and delivery == "dm" or "direct":
     try:
         twitter.send_direct_message(screen_name=target, text=message)
-        #mute command
+        #mute command - to be added when mute added to Twython
     except TwythonError as e:
         print(e)
 elif block == "block" and delivery == "reply" or "open reply" or "public reply":
