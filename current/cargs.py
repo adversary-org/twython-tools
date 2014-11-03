@@ -55,6 +55,14 @@ class permanent:
         except socket.error, e:
             return False
 
+    def checktor3():
+        try:
+            s = socket.socket()
+            s.connect(("127.0.0.1", 8118))
+            return True
+        except socket.error, e:
+            return False
+
     if checktor1() is True:
         client_args = {
             "verify": True,
@@ -79,6 +87,18 @@ class permanent:
                 }
             }
         print("Tor configuration set on localhost and port 9150")
+    elif checktor3() is True:
+        client_args = {
+            "verify": True,
+            "headers": {
+                "User-Agent": "Twython Over Tor"
+                },
+            "proxies": {
+                "http": "http://127.0.0.1:8118",
+                "https": "https://127.0.0.1:8118",
+                }
+            }
+        print("Tor and Privoxy configuration set on localhost and port 8118")
     else:
         client_args = {
             "verify": True,
