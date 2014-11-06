@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 ##
 # Copyright (C) Ben McGinnes, 2013-2014
@@ -10,9 +10,14 @@
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
 #
+#
 # Requirements:
 #
-# See Documentation/README-py2.txt
+# * Python 3.2 or later (developed with Python 3.4.x)
+#
+# Options and notes:
+#
+# Usage:  
 #
 ##
 
@@ -23,13 +28,27 @@ __license__ = "BSD"
 __version__ = "0.0.1"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
-
-from twython import Twython
+import sys
+from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
-twitter.verify_credentials()
 
-target = raw_input("ID number of user to follow: ")
+l = len(sys.argv)
 
-twitter.create_friendship(user_id=target, follow="true")
+if l >=2:
+    target = sys.argv[1]
+else:
+    target = input("User to mute: ")
+
+if isinstance(target, str) is True:
+    try:
+        twitter.create_mute(screen_name=target)
+    except TwythonError as e:
+        print(e)
+elif isinstance(target, int) is True:
+    try:
+        twitter.create_mute(user_id=target)
+    except TwythonError as e:
+        print(e)
+

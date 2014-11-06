@@ -47,7 +47,7 @@ print("""
 The passphrase set with this script must be used with the authinfo.py
 script or added to that script (the latter is *much* less secure).
 
-The password or passphrase is encrypted with 256-bit AES utiliing as
+The password or passphrase is encrypted with 256-bit AES utilising a
 SHA-256 hash implemented with PyCrypto and SimpleCrypt.  SimpleCrypt
 is included with this software, but you must install PyCrypto
 separately (i.e. with pip).
