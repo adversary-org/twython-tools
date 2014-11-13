@@ -5,7 +5,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.1
+# Version:  0.0.2
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -39,9 +39,14 @@ twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 l = len(sys.argv)
 
 if l >= 2:
-    target = sys.argv[1]
+    target1 = sys.argv[1]
 else:
-    target = input("User to show: ")
+    target1 = input("User to show: ")
+
+try:
+    target = int(target1)
+except:
+    target = target1
 
 if isinstance(target, str) is True:
     try:
