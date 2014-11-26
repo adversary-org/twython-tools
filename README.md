@@ -30,8 +30,8 @@ directory.
 * Python 3.2 or greater.
 * Current version of Twython.
 * Current version of Requests.
-** I recommend reinstalling Requests with the --upgrade flag after Twython is installed as Twython tends to install an older version.
-** As thos code depends on Python you can skip Requests and rely on the version installed by Twython by default.
+* * I recommend reinstalling Requests with the --upgrade flag after Twython is installed as Twython tends to install an older version.
+* * As this code depends on Twython you can skip Requests and rely on the version installed by Twython by default.
 * Current version of PyCrypto
 
 
