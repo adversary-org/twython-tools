@@ -14,11 +14,6 @@ course, nothing wrong with GPG itself, but there is plenty of concern
 with the impending conflict between the python-gnupg package and the
 more recent fork.
 
-The scripts in legacy/ are legacy Python 2 scripts and only present
-for reference.
-
-The scripts in current/ are what I use and are actively maintained.
-
 The foad.py script is [available here](https://github.com/adversary-org/foad).
 
 Python version specific information is in the Documentation/
@@ -30,9 +25,12 @@ directory.
 * Python 3.2 or greater.
 * Current version of Twython.
 * Current version of Requests.
-* * I recommend reinstalling Requests with the --upgrade flag after Twython is installed as Twython tends to install an older version.
-* * As this code depends on Twython you can skip Requests and rely on the version installed by Twython by default.
-* Current version of PyCrypto
+* Current version of PyCrypto.
+
+I recommend reinstalling Requests with the --upgrade flag after
+Twython is installed as Twython tends to install an older version.  As
+this code depends on Twython you can skip Requests and rely on the
+version installed by Twython by default.
 
 
 ### Installation
