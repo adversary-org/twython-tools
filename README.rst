@@ -14,8 +14,7 @@ course, nothing wrong with GPG itself, but there is plenty of concern
 with the impending conflict between the python-gnupg package and the
 more recent fork.
 
-The foad.py script is `available
-here <https://github.com/adversary-org/foad>`__.
+The foad.py script is `here <https://github.com/adversary-org/foad>`__.
 
 Python version specific information is in the Documentation/ directory.
 
