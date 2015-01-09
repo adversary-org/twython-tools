@@ -39,9 +39,14 @@ twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 l = len(sys.argv)
 
 if l >= 2:
-    target = sys.argv[1]
+    user = sys.argv[1]
 else:
-    target = input("User to follow: ")
+    user = input("User to follow: ")
+
+try:
+    target = int(user)
+except:
+    target = user
 
 if isinstance(target, str) is True:
     try:
