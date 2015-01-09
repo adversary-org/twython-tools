@@ -37,9 +37,14 @@ twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 l = len(sys.argv)
 
 if l == 1:
-    user = input("Enter username or user ID of user: ")
+    target = input("Enter username or user ID of user: ")
 elif l >= 2:
-    user = sys.argv[1]
+    target = sys.argv[1]
+
+try:
+    user = int(target)
+except:
+    user = target
 
 if isinstance(user, str) is True:
     try:
