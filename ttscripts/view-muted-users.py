@@ -42,7 +42,7 @@ try:
     for i in range(mnum):
         print("{0}: {1}".format(musr[i]["screen_name"], musr[i]["name"]))
     print(" ")
-    print("Number of users blocked: {0}".format(mnum))
+    print("Number of users silenced: {0}".format(mnum))
     print(" ")
 except TwythonError as e:
     print(e)
