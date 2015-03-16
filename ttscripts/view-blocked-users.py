@@ -38,8 +38,11 @@ try:
     blocked = twitter.list_blocks(skip_status=1, cursor=-1)
     busr = blocked["users"]
     bnum = len(busr)
-    print("Number of users blocked: {0}".format(bnum))
+    print(" ")
     for i in range(bnum):
-        print("{0}: {1}".format((busr[i]["screen_name"], busr[i]["name"])))
+        print("{0}: {1}".format(busr[i]["screen_name"], busr[i]["name"]))
+    print(" ")
+    print("Number of users blocked: {0}".format(bnum))
+    print(" ")
 except TwythonError as e:
     print(e)
