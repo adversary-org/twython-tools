@@ -35,14 +35,14 @@ from config import *
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 try:
-    blocked = twitter.list_blocks(skip_status=1, cursor=-1)
-    busr = blocked["users"]
-    bnum = len(busr)
+    muted = twitter.list_mutes(skip_status=1, cursor=-1)
+    musr = muted["users"]
+    mnum = len(musr)
     print(" ")
-    for i in range(bnum):
-        print("{0}: {1}".format(busr[i]["screen_name"], busr[i]["name"]))
+    for i in range(mnum):
+        print("{0}: {1}".format(musr[i]["screen_name"], musr[i]["name"]))
     print(" ")
-    print("Number of users blocked: {0}".format(bnum))
+    print("Number of users silenced: {0}".format(mnum))
     print(" ")
 except TwythonError as e:
     print(e)
