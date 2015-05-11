@@ -104,7 +104,12 @@ else:
 try:
     data = twitter.add_list_member(slug=listid, owner_screen_name=owner,
                                    screen_name=target)
-    print(data)
 except TwythonError as e:
     print(e)
+    data = ""
 
+if len(data) > 0:
+    print("""{0} added to https://twitter.com{1} which now has {2} members.
+    """.format(target, data['uri'], data['member_count']))
+else:
+    print("No user added to any list.")
