@@ -5,7 +5,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.2
+# Version:  0.0.3
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -26,60 +26,66 @@ __author__ = "Ben McGinnes <ben@adversary.org>"
 __copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
 __license__ = "BSD"
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import sys
-#from twython import Twython, exceptions
 from twython import Twython, TwythonError
 from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 l = len(sys.argv)
+lt = l - 1
 
-if l >= 2:
-    target1 = sys.argv[1]
+if l == 2:
+    targets = []
+    targets.append(sys.argv[1])
+elif l > 2:
+    targets = sys.argv[1:l]
 else:
-    target1 = input("User to show: ")
+    targetx = input("User(s) to show (separate with spaces): ")
+    targets = targetx.split()
 
-try:
-    target = int(target1)
-except:
-    target = target1
-
-if isinstance(target, str) is True:
+for i in range(len(targets)):
+    target1 = targets[i]
     try:
-        data = twitter.show_user(screen_name=target)
-    except TwythonError as e:
-        print(e)
-        data =""
-elif isinstance(target, int) is True:
-    try:
-        data = twitter.show_user(user_id=target)
-    except TwythonError as e:
-        print(e)
-        data = ""
-elif isinstance(int(target), int) is True:
-    try:
-        data = twitter.show_user(user_id=target)
-    except TwythonError as e:
-        print(e)
-        data = ""
+        target = int(target1)
+    except:
+        target = target1
 
-if len(data) >= 1:
-    print("""
-Name:     %s
-About:    %s
+    if isinstance(target, str) is True:
+        try:
+            data = twitter.show_user(screen_name=target)
+        except TwythonError as e:
+            print(e)
+            data =""
+    elif isinstance(target, int) is True:
+        try:
+            data = twitter.show_user(user_id=target)
+        except TwythonError as e:
+            print(e)
+            data = ""
+    elif isinstance(int(target), int) is True:
+        try:
+            data = twitter.show_user(user_id=target)
+        except TwythonError as e:
+            print(e)
+            data = ""
 
-Username: %s
-User ID:  %s
-Created:  %s
-
-Tweets:   %s
-
-Following:  %s
-Followers:  %s
-""" % (data["name"], data["description"], data["screen_name"], data["id_str"], data["created_at"], data["statuses_count"], data["friends_count"], data["followers_count"]))
-else:
-    pass
+    if len(data) >= 1:
+        print("""
+    Name:     %s
+    About:    %s
+    
+    Username: %s
+    User ID:  %s
+    Created:  %s
+    
+    Tweets:   %s
+    
+    Following:  %s
+    Followers:  %s
+    """ % (data["name"], data["description"], data["screen_name"], data["id_str"], data["created_at"], data["statuses_count"], data["friends_count"], data["followers_count"]))
+    else:
+        pass
