@@ -38,22 +38,25 @@ twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 l = len(sys.argv)
 
 if l == 1:
-    stat = input("* Twitter ID for status being replied to: ")
+    sa1 = input("* Twitter ID for status being replied to: ")
+    stat = sa1.split("/")[-1]
     mesg = input("* Status update (140 characters max, must include @username): ")
 elif l == 2:
     sa1 = sys.argv[1]
+    sa = sa1.split("/")
+    stat = sa[-1]
     if sa1.startswith("https://twitter.com/") is True:
-        a = sa1.replace(sa1[0:20], "").replace("/status/", " ").split()
-        stat = a[1]
-        user = a[0]
+        user = sa[2]
         char = 140 - (len(user) + 2)
-        msg = input("Enter the reply, not counting the username (%s characters max: " % char)
+        msg = input("Enter the reply, not counting the username ({0} characters max): ".format(char))
         mesg = "@" + user + " " + msg
     else:
         stat = sys.argv[1]
         mesg = input("* Status update (140 characters max, must include @username): ")
 elif l >= 3:
-    stat = sys.argv[1]
+    sa1 = sys.argv[1]
+    sa = sa1.split("/")
+    stat = sa[-1]
     msg = []
     for i in range(l - 2):
         msg.append(str(sys.argv[i + 2]))
