@@ -9,7 +9,7 @@ from __future__ import division
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.1
+# Version:  0.0.2
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -28,7 +28,7 @@ from __future__ import division
 __author__ = "Ben McGinnes <ben@adversary.org>"
 __copyright__ = "Copyright © Benjamin D. McGinnes, 2013-2015"
 __license__ = "BSD"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import datetime
@@ -61,71 +61,121 @@ try:
     x = int(owner)
 except:
     x = owner
-    
+
+me = cred["screen_name"]
 now = dd.utcnow()
 
 if isinstance(listid, str) is True:
     try:
-        data = twitter.get_list_members(slug=listid, owner_screen_name=x,
+        mdata = twitter.get_list_members(slug=listid, owner_screen_name=x,
                                         count=5000)
     except TwythonError as e:
         print(e)
 elif isinstance(listid, int) is True:
     try:
-        data = twitter.get_list_members(list_id=listid, owner_screen_name=x,
+        mdata = twitter.get_list_members(list_id=listid, owner_screen_name=x,
                                         count=5000)
     except TwythonError as e:
         print(e)
 
+if isinstance(listid, str) is True:
+    try:
+        sdata = twitter.get_list_subscribers(slug=listid,
+                                             owner_screen_name=x, count=5000)
+    except TwythonError as e:
+        print(e)
+elif isinstance(listid, int) is True:
+    try:
+        sdata = twitter.get_list_subscribers(list_id=listid,
+                                             owner_screen_name=x, count=5000)
+    except TwythonError as e:
+        print(e)
+
+
 tstr = str(round(now.timestamp()))
 path = os.path.realpath(outdir)
 members = []
+subscribers = []
 
-nf1 = "{0}/{1}-{2}-{3}-alldata.txt".format(path, x, listid, tstr)
-nf2 = "{0}/{1}-{2}-{3}-usernames.txt".format(path, x, listid, tstr)
-nf3 = "{0}/{1}-{2}-{3}-summary.txt".format(path, x, listid, tstr)
+nf1 = "{0}/{1}-{2}-{3}-mem-alldata.txt".format(path, x, listid, tstr)
+nf2 = "{0}/{1}-{2}-{3}-mem-usernames.txt".format(path, x, listid, tstr)
+nf3 = "{0}/{1}-{2}-{3}-sub-alldata.txt".format(path, x, listid, tstr)
+nf4 = "{0}/{1}-{2}-{3}-sub-usernames.txt".format(path, x, listid, tstr)
+nf5 = "{0}/{1}-{2}-{3}-summary.txt".format(path, x, listid, tstr)
 
-ld = len(data["users"])
+lmd = len(mdata["users"])
+lsd = len(sdata["users"])
 
 afile = open(nf1, "w")
 afile.write(now.isoformat())
 afile.write("\n")
-afile.write("Total number of users in list:  {0}".format(ld))
+afile.write("Total number of users in list:  {0}".format(lmd))
 afile.write("\n")
 afile.write("\n")
-for i in range(ld):
-    dstr = str(data["users"][i])
+for i in range(lmd):
+    dstr = str(mdata["users"][i])
     afile.write(dstr)
     afile.write("\n")
     afile.write("\n")
 afile.write("\n")
 afile.write(now.isoformat())
 afile.write("\n")
-afile.write("Total number of users in list:  {0}".format(ld))
+afile.write("Total number of users in list:  {0}".format(lmd))
 afile.write("\n")
 afile.close()
 
 bfile = open(nf2, "w")
-for i in range(ld):
-    user = data["users"][i]["screen_name"]
+for i in range(lmd):
+    user = mdata["users"][i]["screen_name"]
     members.append(user)
     bfile.write(user)
     bfile.write("\n")
 bfile.close()
 
+cfile = open(nf3, "w")
+cfile.write(now.isoformat())
+cfile.write("\n")
+cfile.write("Total number of users in list:  {0}".format(lmd))
+cfile.write("\n")
+cfile.write("\n")
+for i in range(lsd):
+    dstr = str(sdata["users"][i])
+    cfile.write(dstr)
+    cfile.write("\n")
+    cfile.write("\n")
+cfile.write("\n")
+cfile.write(now.isoformat())
+cfile.write("\n")
+cfile.write("Total number of users in list:  {0}".format(lmd))
+cfile.write("\n")
+cfile.close()
+
+dfile = open(nf4, "w")
+for i in range(lsd):
+    user = sdata["users"][i]["screen_name"]
+    subscribers.append(user)
+    dfile.write(user)
+    dfile.write("\n")
+dfile.close()
+
+
 resp = """
-Data accurate as of:    {0} UTC
-Total number of users:  {1}
+Data accurate as of:    {0}  UTC
 
-Data saved to:
+Total number of members:      {1}
+Total number of subscribers:  {2}
 
-{2}
+data saved to:
+
 {3}
 {4}
-""".format(now.isoformat(), ld, nf1, nf2, nf3)
+{5}
+{6}
+{7}
+""".format(now.isoformat(), lmd, lsd, nf1, nf2, nf3, nf4, nf5)
 
-cfile = open(nf3, "w")
-cfile.write(resp)
-cfile.close()
+efile = open(nf5, "w")
+efile.write(resp)
+efile.close()
 
 print(resp)
