@@ -72,9 +72,9 @@ tstr = str(round(now.timestamp()))
 path = os.path.realpath(outdir)
 members = []
 
-nf1 = "{0}/{1}-{2}-alldata.txt".format(path, listid, tstr)
-nf2 = "{0}/{1}-{2}-usernames.txt".format(path, listid, tstr)
-nf3 = "{0}/{1}-{2}-summary.txt".format(path, listid, tstr)
+nf1 = "{0}/{1}-{2}-{3}-alldata.txt".format(path, me, listid, tstr)
+nf2 = "{0}/{1}-{2}-{3}-usernames.txt".format(path, me, listid, tstr)
+nf3 = "{0}/{1}-{2}-{3}-summary.txt".format(path, me, listid, tstr)
 
 ld = len(data["users"])
 
