@@ -129,7 +129,7 @@ for i in range(len(targets)):
         elif d2sbx is False:
             d2sb = "{0} is not blocking you.".format(them)
         else:
-            d2sb = "unknown"
+            d2sb = "It is not known whether {0} is blocking you or not.".format(them)
 
         d2sdx = d2s["can_dm"]
         if d2sdx is True:
