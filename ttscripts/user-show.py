@@ -128,6 +128,8 @@ for i in range(len(targets)):
             d2sb = "{0} is blocking you.".format(them)
         elif d2sbx is False:
             d2sb = "{0} is not blocking you.".format(them)
+        elif d1sfx is True or d2sfx is True:
+            d2sb = "{0} is not blocking you.".format(them)
         else:
             d2sb = "It is not known whether {0} is blocking you or not.".format(them)
 
