@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+from __future__ import division
 
 ##
 # Copyright (C) Ben McGinnes, 2013-2014
@@ -26,11 +30,13 @@ __author__ = "Ben McGinnes <ben@adversary.org>"
 __copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
 __license__ = "BSD"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
+import datetime
 import math
 import sys
+import time
 from twython import Twython
 from config import *
 
@@ -42,7 +48,7 @@ l = len(sys.argv)
 if l >= 2:
     user = sys.argv[1]
 else:
-    user = input("Enter Twitter handle to get followers of: ")
+    user = input("Enter Twitter handle to get friends of: ")
 
 suser = twitter.show_user(screen_name=user)
 fnum = 200
@@ -69,9 +75,26 @@ for p in range(pnum):
     except(IndexError):
         pass
 
-print(len(friends))
+lf = len(friends)
+slf = str(lf)
+ddtz = datetime.datetime.utcnow().isoformat()
+ts = str(int(time.time()))
+# filename = "OutputFiles/{0}-friends-{1}.txt".format(user, ts)
+filename = "OutputFiles/"+user+"-friends-"+ts+".txt"
 
+print(ddtz)
+print(lf)
+
+afile = open(filename, "ab")
+afile.write(bytes("""Timestamp:  {0} UTC
+Number of friends:  {1}
+""".format(ddtz, slf), "utf-8"))
 for x in friends:
-    print("""Name:  %s
-Username:  %s
-""" % (x["name"], x["screen_name"]))
+    afile.write(bytes("""
+    Name:  {0}
+Username:  {1}
+ User ID:  {2}
+""".format(x["name"], x["screen_name"], x["id_str"]), "utf-8"))
+afile.close()
+
+print(datetime.datetime.utcnow().isoformat())
