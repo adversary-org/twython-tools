@@ -43,11 +43,17 @@ twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 l = len(sys.argv)
 
 if l >= 2:
-    twid = sys.argv[1]
+    twid0 = sys.argv[1]
 elif l < 2:
-    twid = input("ID number of tweet to fetch: ")
+    twid0 = input("ID number of tweet to fetch: ")
 else:
-    twid = input("ID number of tweet to fetch: ")
+    twid0 = input("ID number of tweet to fetch: ")
+
+try:
+    twid = int(twid0)
+except:
+    twid1 = twid0.split("/")
+    twid = twid1[-1]
 
 try:
     tweet = twitter.show_status(id=twid)
@@ -56,10 +62,11 @@ try:
     for i in range(lt):
         purl = tweet['extended_entities']['media'][i]['media_url']
         plst = purl.split("/")
-        pnom = plst[-1]
+        pnom = "OutputFiles/{0}".format(plst[-1])
         r = requests.get(purl, verify=True)
         pfile = open(pnom, "wb")
         pfile.write(r.content)
         pfile.close()
+        print("Media file downloaded to: {0}".format(pnom))
 except TwythonError as e:
     print(e)
