@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+from __future__ import division
 
 ##
 # Copyright (C) Ben McGinnes, 2013-2014
@@ -48,12 +52,12 @@ except:
 
 if isinstance(user, str) is True:
     try:
-        data = twitter.get_list_memberships(screen_name=user)
+        data = twitter.get_list_memberships(screen_name=user, count=1000)
     except TwythonError as e:
         print(e)
 elif isinstance(user, int) is True:
     try:
-        data = twitter.get_list_memberships(user_id=user)
+        data = twitter.get_list_memberships(user_id=user, count=1000)
     except TwythonError as e:
         print(e)
 

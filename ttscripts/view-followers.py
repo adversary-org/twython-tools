@@ -75,6 +75,7 @@ for p in range(pnum):
 print(len(followers))
 
 for x in followers:
-    print("""Name:  %s
+    print("""    Name:  %s
 Username:  %s
-""" % (x["name"], x["screen_name"]))
+ User ID:  %s
+""" % (x["name"], x["screen_name"], x["id_str"]))

@@ -86,14 +86,6 @@ elif d1sfx is False:
 else:
     d1sf = "unknown"
     
-d1sbx = d1s["blocking"]
-if d1sbx is True:
-    d1sb = "Yes"
-elif d1sbx is False:
-    d1sb = "No"
-else:
-    d1sb = "unknown"
-
 d1sdx = d1s["can_dm"]
 if d1sdx is True:
     d1sd = "Yes"
@@ -113,24 +105,6 @@ elif d1tfx is False:
 else:
     d1tf = "unknown"
 
-results1 = """    Name:     %s
-    About:    %s
-
-    Source:   %s        Target:  %s
-    Username: %s        User ID:  %s
-    Created:  %s
-
-    Tweets:   %s
-    Following:  %s      Followers:  %s
-
-    %s following %s:  %s
-    %s following %s:  %s
-
-    %s able to DM %s:   %s
-    Is %s blocking %s:  %s
-""" % (su1["name"], su1["description"], d1ss, d1ts, su1["screen_name"], su1["id_str"], su1["created_at"], su1["statuses_count"], su1["friends_count"], su1["followers_count"], d1ss, d1ts, d1sf, d1ts, d1ss, d1tf, d1ss, d1ts, d1sd, d1ss, d1ts, d1sb)
-
-
 d2 = data2["relationship"]
 d2s = d2["source"]
 d2ss = d2s["screen_name"]
@@ -143,14 +117,6 @@ elif d2sfx is False:
 else:
     d2sf = "unknown"
     
-d2sbx = d2s["blocking"]
-if d2sbx is True:
-    d2sb = "Yes"
-elif d2sbx is False:
-    d2sb = "No"
-else:
-    d2sb = "unknown"
-
 d2sdx = d2s["can_dm"]
 if d2sdx is True:
     d2sd = "Yes"
@@ -169,6 +135,44 @@ elif d2tfx is False:
     d2tf = "No"
 else:
     d2tf = "unknown"
+
+d1sbx = d1s["blocking"]
+if d1sbx is True:
+    d1sb = "Yes"
+elif d1tfx is True:
+    d1sb = "No"
+elif d2sdx is True:
+     d1sb = "No"
+else:
+    d1sb = "unknown"
+
+d2sbx = d2s["blocking"]
+if d2sbx is True:
+    d2sb = "Yes"
+elif d2tfx is True:
+    d2sb = "No"
+elif d1sdx is True:
+    d2sb = "No"
+else:
+    d2sb = "unknown"
+
+results1 = """    Name:     %s
+    About:    %s
+
+    Source:   %s        Target:  %s
+    Username: %s        User ID:  %s
+    Created:  %s
+
+    Tweets:   %s
+    Following:  %s      Followers:  %s
+
+    %s following %s:  %s
+    %s following %s:  %s
+
+    %s able to DM %s:   %s
+    Is %s blocking %s:  %s
+""" % (su1["name"], su1["description"], d1ss, d1ts, su1["screen_name"], su1["id_str"], su1["created_at"], su1["statuses_count"], su1["friends_count"], su1["followers_count"], d1ss, d1ts, d1sf, d1ts, d1ss, d1tf, d1ss, d1ts, d1sd, d1ss, d1ts, d1sb)
+
 
 results2 = """    Name:     %s
     About:    %s

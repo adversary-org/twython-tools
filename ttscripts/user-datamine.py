@@ -79,12 +79,51 @@ for i in range(len(targets)):
 
     if len(data) >= 1:
         them = data["screen_name"]
-        dnow = datetime.datetime.utcnow().isoformat()
         data1 = twitter.show_friendship(source_screen_name=me,
                                         target_screen_name=them)
         data2 = twitter.show_friendship(source_screen_name=them,
                                         target_screen_name=me)
 
+        bdata = str(data).encode('utf-8')
+        u = datetime.datetime.utcnow()
+        dnow = u.isoformat()
+        y = str(u.year)
+        m0 = str(u.month)
+        if len(m0) == 1:
+            m = "0" + m0
+        else:
+            m = m0
+        
+        d0 = str(u.day)
+        if len(d0) == 1:
+            d = "0" + d0
+        else:
+            d = d0
+
+        h0 = str(u.hour)
+        if len(h0) == 1:
+            h = "0" + h0
+        else:
+            h = h0
+        
+        mn0 = str(u.minute)
+        if len(mn0) == 1:
+            mn = "0" + mn0
+        else:
+            mn = mn0
+        
+        s0 = str(u.second)
+        if len(s0) == 1:
+            s = "0" + s0
+        else:
+            s = s0
+
+        fnv = "{0}-{1}{2}{3}-{4}{5}{6}".format(target, y, m, d, h, mn, s)
+        fn = "output/userdata-{0}.txt".format(fnv)
+        afile = open(fn, "wb")
+        afile.write(bdata)
+        afile.close()
+        
         d1 = data1["relationship"]
         d1s = d1["source"]
         d1ss = d1s["screen_name"]
@@ -177,7 +216,3 @@ for i in range(len(targets)):
                time.ctime(tnow)))
     else:
         pass
-
-
-
-

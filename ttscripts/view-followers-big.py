@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 ##
-# Copyright (C) Ben McGinnes, 2013-2014
+# Copyright (C) Ben McGinnes, 2013-2015
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.1
+# Version:  0.0.2
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -23,12 +23,13 @@
 ##
 
 __author__ = "Ben McGinnes <ben@adversary.org>"
-__copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
-__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
+__copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2015"
+__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2015"
 __license__ = "BSD"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
+import datetime
 import math
 import sys
 import time
@@ -71,11 +72,26 @@ for p in range(pnum):
     except(IndexError):
         pass
 
-print(len(followers))
+lf = len(followers)
+slf = str(lf)
+ddtz = datetime.datetime.utcnow().isoformat()
+ts = str(int(time.time()))
+filename = "OutputFiles/"+user+"-followers-"+ts+".txt"
 
-afile = open("/tmp/"+user+"-followers.txt", "ab")
+print(ddtz)
+print(lf)
+
+afile = open(filename, "ab")
+afile.write(bytes("""Timestamp:  {0} UTC
+Number of followers:  {1}
+""".format(ddtz, slf), "utf-8"))
 for x in followers:
-    afile.write("""Name:  %s
-Username:  %s
-""" % (x["name"], x["screen_name"]))
+    afile.write(bytes("""
+    Name:  {0}
+Username:  {1}
+ User ID:  {2}
+
+""".format(x["name"], x["screen_name"], x["id_str"]), "utf-8"))
 afile.close()
+
+print(datetime.datetime.utcnow().isoformat())
