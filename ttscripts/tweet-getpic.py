@@ -40,6 +40,31 @@ from config import *
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
+if dir().count("permanent") > 0 or dir().count("dynamic") > 0:
+    if permanent.checktor1() or dynamic.checktor1 is True:
+        proxyval = True
+        # proxies = { "http": "http://127.0.0.1:9050",
+        #             "https": "https://127.0.0.1:9050", }
+        proxies = { "http": "http://127.0.0.1:8118",
+                    "https": "https://127.0.0.1:8118", }
+    elif permanent.checktor2() or dynamic.checktor2() is True:
+        proxyval = True
+        # proxies = { "http": "http://127.0.0.1:9150",
+        #             "https": "https://127.0.0.1:9150", }
+        proxies = { "http": "http://127.0.0.1:8118",
+                    "https": "https://127.0.0.1:8118", }
+    elif permanent.checktor3() or dynamic.checktor2() is True:
+        proxyval = True
+        proxies = { "http": "http://127.0.0.1:8118",
+                    "https": "https://127.0.0.1:8118", }
+    else:
+        proxyval = False
+else:
+    proxyval = False
+    pass
+
+
+headers = { "headers" : "Twython Tools", }
 l = len(sys.argv)
 
 if l >= 2:
@@ -57,13 +82,18 @@ except:
 
 try:
     tweet = twitter.show_status(id=twid)
-    # print(tweet["user"]["name"]+" ("+tweet["user"]["screen_name"]+"): "+tweet["text"])
     lt = len(tweet['extended_entities']['media'])
     for i in range(lt):
         purl = tweet['extended_entities']['media'][i]['media_url']
         plst = purl.split("/")
         pnom = "OutputFiles/{0}".format(plst[-1])
-        r = requests.get(purl, verify=True)
+        if proxyval is True:
+            try:
+                r = requests.get(purl, headers=headers, proxies=proxies, verify=True)
+            except:
+                r = requests.get(purl, headers=headers, verify=True)
+        else:
+            r = requests.get(purl, headers=headers, verify=True)
         pfile = open(pnom, "wb")
         pfile.write(r.content)
         pfile.close()
