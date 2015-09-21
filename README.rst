@@ -21,7 +21,7 @@ Python version specific information is in the Documentation/ directory.
 REQUIREMENTS
 ------------
 
--  Python 3.2 or greater.
+-  Python 3.3 or greater (3.4 or above recommended).
 -  Current version of Twython.
 -  Current version of Requests.
 -  Current version of PyCrypto.
