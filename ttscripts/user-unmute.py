@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 ##
-# Copyright (C) Ben McGinnes, 2013-2014
+# Copyright (C) Ben McGinnes, 2013-2015
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.1
+# Version:  0.0.2
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -22,10 +22,10 @@
 ##
 
 __author__ = "Ben McGinnes <ben@adversary.org>"
-__copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
-__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
+__copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2015"
+__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2015"
 __license__ = "BSD"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import sys
@@ -37,9 +37,15 @@ twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 l = len(sys.argv)
 
 if l >= 2:
-    target = sys.argv[1]
+    user = sys.argv[1]
 else:
-    target = input("User to stop muteing: ")
+    user = input("User to block: ")
+
+try:
+    target = int(user)
+except:
+    target1 = user.split("/")
+    target = target1[-1]
 
 if isinstance(target, str) is True:
     try:
