@@ -48,12 +48,6 @@ else:
     twidz = input("ID numbers of tweets to fetch (separated by spaces): ")
     twids = twidz.split()
 
-# for twid in twids:
-#     try:
-#         tweet = twitter.show_status(id=twid)
-#         print(tweet["user"]["name"]+" ("+tweet["user"]["screen_name"]+"): "+tweet["text"])
-#     except TwythonError as e:
-#         print(e)
 
 for twid0 in twids:
     if twid0.startswith("http"):
@@ -96,7 +90,6 @@ for twid0 in twids:
             twid = None
     else:
         twid = None
-
 
     if twid is not None:
         try:
