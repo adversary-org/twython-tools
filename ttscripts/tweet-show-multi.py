@@ -48,9 +48,64 @@ else:
     twidz = input("ID numbers of tweets to fetch (separated by spaces): ")
     twids = twidz.split()
 
-for twid in twids:
-    try:
-        tweet = twitter.show_status(id=twid)
-        print(tweet["user"]["name"]+" ("+tweet["user"]["screen_name"]+"): "+tweet["text"])
-    except TwythonError as e:
-        print(e)
+# for twid in twids:
+#     try:
+#         tweet = twitter.show_status(id=twid)
+#         print(tweet["user"]["name"]+" ("+tweet["user"]["screen_name"]+"): "+tweet["text"])
+#     except TwythonError as e:
+#         print(e)
+
+for twid0 in twids:
+    if twid0.startswith("http"):
+        twid1 = twid0.split("/")
+    else:
+        try:
+            twid = int(twid0)
+            twid1 = None
+        except:
+            twid = twid0
+            twid1 = None
+
+    if twid1 is not None and twid1[2] == "t.co":
+        try:
+            r = requests.get(twid0, verify=True)
+        except:
+            r = requests.get(twid0, verify=False)
+        twid2 = r.url
+        twid3 = twid2.split("/")
+        if twid3 == "twitter.com":
+            if len(twid3) >= 6:
+                if twid3[4] == "status":
+                    try:
+                        twid = int(twid3[5])
+                    except:
+                        twid = twid3[5]
+                    else:
+                        pass
+                else:
+                    twid = None
+    elif twid1 is not None and twid1[2] == "twitter.com":
+        if twid1[4] == "status":
+            try:
+                twid = int(twid1[5])
+            except:
+                twid = twid1[5]
+            else:
+                pass
+        else:
+            twid = None
+    else:
+        twid = None
+
+
+    if twid is not None:
+        try:
+            tweet = twitter.show_status(id=twid)
+            print(tweet["user"]["name"]+" ("+tweet["user"]["screen_name"]+"): "+tweet["text"])
+        except TwythonError as e:
+            print(e)
+            # print(twid)
+        else:
+            pass
+    else:
+        print("You must enter a valid status ID.")
