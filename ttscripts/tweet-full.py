@@ -110,11 +110,37 @@ if len(media_fn) > 0:
 else:
     mfid = None
 
-if len(message) < 1:
+
+if len(message) < 1 and twid is None and mfid is None:
     mesg = None
+elif len(message) < 1 and twid is None and mfid is not None:
+    mesg = "."
+elif len(message) < 1 and twid is not None and mfid is not None:
+    users = []
+    hashtags = []
+    try:
+        tweet = twitter.show_status(id=twid)
+        user1 = "@"+tweet["user"]["screen_name"]
+        users.append(user1)
+        rtweet = tweet["text"]
+        rtword = rtweet.split()
+        for i in range(len(rtword)):
+            if rtword[i].startswith("@") is True:
+                users.append(rtword[i])
+            elif rtword[i].startswith("#") is True:
+                hashtags.append(rtword[i])
+            else:
+                pass
+        ustr = " ".join(users)
+        hstr = " ".join(hashtags)
+        mesg = "{0} {1}".format(ustr, hstr)
+    except TwythonError as e:
+        print(e)
+        mesg = "."
 else:
     mesg = message
 
+    
 if mesg is not None and twid is None and mfid is None:
     try:
         twitter.update_status(status=mesg)
@@ -143,7 +169,8 @@ elif mesg is None and twid is None and mfid is not None:
         print(e)
 elif mesg is None and twid is not None and mfid is not None:
     try:
-        twitter.update_status(status="", media_ids=mfid)
+        twitter.update_status(status="", media_ids=mfid,
+                              in_reply_to_status_id=twid)
     except TwythonError as e:
         print(e)
 else:
