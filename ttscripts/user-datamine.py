@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 ##
-# Copyright (C) Ben McGinnes, 2013-2014
+# Copyright (C) Ben McGinnes, 2013-2015
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.3
+# Version:  0.0.4
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -23,13 +23,14 @@
 ##
 
 __author__ = "Ben McGinnes <ben@adversary.org>"
-__copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
-__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
+__copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2015"
+__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2015"
 __license__ = "BSD"
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 import datetime
+import requests
 import time
 import sys
 from twython import Twython, TwythonError
@@ -56,14 +57,28 @@ for i in range(len(targets)):
     try:
         target = int(target1)
     except:
-        target = target1
+        if isinstance(target1, str) is True and target1.startswith("http"):
+            target2 = target1.split("/")
+            if target2[2] == "twitter.com":
+                target = target2[3]
+            elif target2[2] == "t.co":
+                r = requests.get(target1, verify=True)
+                target3 = r.url.split("/")
+                if target3[2] == "twitter.com":
+                    target = target3[3]
+                else:
+                    target = target1  # will fail.
+            else:
+                target = target1  # will fail.
+        else:
+            target = target1  # might not fail
 
     if isinstance(target, str) is True:
         try:
             data = twitter.show_user(screen_name=target)
         except TwythonError as e:
             print(e)
-            data =""
+            data = ""
     elif isinstance(target, int) is True:
         try:
             data = twitter.show_user(user_id=target)
@@ -119,7 +134,7 @@ for i in range(len(targets)):
             s = s0
 
         fnv = "{0}-{1}{2}{3}-{4}{5}{6}".format(target, y, m, d, h, mn, s)
-        fn = "output/userdata-{0}.txt".format(fnv)
+        fn = "OutputFiles/userdata-{0}.txt".format(fnv)
         afile = open(fn, "wb")
         afile.write(bdata)
         afile.close()
