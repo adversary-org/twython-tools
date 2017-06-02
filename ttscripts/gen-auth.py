@@ -6,7 +6,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.1.0
+# Version:  0.1.1
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -36,8 +36,7 @@ __license__ = "BSD"
 __version__ = "0.1.1"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
-# import getpass
-# import sys
+
 import os
 from gpg import core, errors
 
@@ -64,8 +63,8 @@ data.append(input("Enter Consumer Secret (APP_SECRET): "))
 data.append(input("Enter Access Token (OAUTH_TOKEN): "))
 data.append(input("Enter Access Token Secret (OAUTH_TOKEN_SECRET): "))
 
-# rkey = input("Enter the key ID to encrypt to: ")
-rkey = "0x321E4E2373590E5D"
+rkey = input("Enter the key ID to encrypt to: ")
+# rkey = ""
 
 authdata = """class oauth:
     APP_KEY = \"{0}\"
