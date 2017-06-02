@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 ##
-# Copyright (C) Ben McGinnes, 2013-2014
+# Copyright (C) Ben McGinnes, 2013-2017
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.9
+# Version:  0.1.0
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # License:  BSD
@@ -14,8 +14,9 @@
 #
 # Requirements:
 #
-# * Python 3.2 or later (developed with Python 3.4.x)
-# * A current version of PyCrypto.
+# * Python 3.4 or later (developed with Python 3.5.x)
+# * GPG, GPGME and PyME (the latter is included with GPGME)
+# ** The PyME module has been renamed as gpg.
 # * Tor service with SOCKS and proxy (optional).
 #
 # Options and notes:
@@ -29,30 +30,32 @@
 ##
 
 __author__ = "Ben McGinnes <ben@adversary.org>"
-__copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
-__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
+__copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2017"
+__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2017"
 __license__ = "BSD"
-__version__ = "0.0.9"
+__version__ = "0.1.1"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
-
-import binascii
-import getpass
-import hashlib
-import sys
-
-from simplecrypt import encrypt, decrypt
+# import getpass
+# import sys
+import os
+from gpg import core, errors
 
 print("""
-The passphrase set with this script must be used with the authinfo.py
-script or added to that script (the latter is *much* less secure).
+This script encrypts the OAuth data in an importable format with the
+OpenPGP (GPG) key specified by the user.
 
-The password or passphrase is encrypted with 256-bit AES utilising a
-SHA-256 hash implemented with PyCrypto and SimpleCrypt.  SimpleCrypt
-is included with this software, but you must install PyCrypto
-separately (i.e. with pip).
+Due to python-gnupg not keeping up with changes to GPG 2.1, this
+script is being migrated to use PyME and GPGME.
+
+Encryption method shamelessly nicked from simple.py in the PyME
+examples directory (but adapted to write to a file instead of stdout).
+The original code is dual licensed under the same terms as both GPGME
+and PyME (i.e. the GPL version 2.0 and LGPL version 2.1).
 
 """)
+
+core.check_version(None)
 
 data = []
 
@@ -61,20 +64,8 @@ data.append(input("Enter Consumer Secret (APP_SECRET): "))
 data.append(input("Enter Access Token (OAUTH_TOKEN): "))
 data.append(input("Enter Access Token Secret (OAUTH_TOKEN_SECRET): "))
 
-try:
-    password = getpass.getpass("Enter the passphrase to secure Twitter access: ")
-except getpass.GetPassWarning:
-    print("Your current terminal may display your password.  You will be prompted to continue or not.")
-    cont = input("Do you wish to continue (yes/no): ")
-    if cont.lower() == "yes" or "y":
-        password = getpass.getpass("Enter the passphrase to secure Twitter access: ")
-    else:
-        print("You should use a normal xterm to run this program.")
-        print("Exiting.")
-        sys.exit()
-
-phrase = hashlib.sha256(password.encode("utf-8")).hexdigest()
-del password
+# rkey = input("Enter the key ID to encrypt to: ")
+rkey = "0x321E4E2373590E5D"
 
 authdata = """class oauth:
     APP_KEY = \"{0}\"
@@ -83,12 +74,26 @@ authdata = """class oauth:
     OAUTH_TOKEN_SECRET = \"{3}\"
 """.format(data[0], data[1], data[2], data[3])
 del data
-crypted = encrypt(phrase, authdata)
-del phrase
-del authdata
-ciphertext = binascii.hexlify(crypted)
-cryptfile = ciphertext.decode("utf-8")
 
-afile = open("oauth.py.enc", "w")
-afile.write(cryptfile)
-afile.close()
+plain = core.Data(authdata)
+cipher = core.Data()
+c = core.Context()
+c.set_armor(1)
+
+c.op_keylist_start(rkey, 0)
+r = c.op_keylist_next()
+
+del authdata
+
+if r == None:
+    print("""The key for user "{0}" was not found""".format(rkey))
+else:
+    try:
+        c.op_encrypt([r], 1, plain, cipher)
+        cipher.seek(0, os.SEEK_SET)
+        afile = open("oauth.py.asc", "wb")
+        afile.write(cipher.read())
+        afile.close()
+    except errors.GPGMEError as ex:
+        print(ex.getstring())
+
