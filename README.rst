@@ -4,15 +4,17 @@ Twython Tools
 Command line scripts and tools for implementing Twython functions.
 
 Incorporates functions from other Python libraries and modules,
-including twython, requests, PyCrypto, simplecrypt (included), and
-foad.py (optional).
+including twython, requests, GPGME (as gpg), and foad.py (optional).
 
 Use of Tor is optional.
 
-GPG is no longer used for encrypting the OAuth data. There is, of
-course, nothing wrong with GPG itself, but there is plenty of concern
-with the impending conflict between the python-gnupg package and the
-more recent fork.
+Neither the original python-gnupg wrapper module maintained by Vinay
+Sajip nor the newer gnupg wrapper module by Isis Lovecruft are used in
+this project.  Instead GPGME's built-in Python bindings are used to
+interact with the C API and take advantage of all the security
+benefits that come with it.  This includes, but is not limited to,
+leveraging gpg-agent to handle all password or passphrase entry,
+instead of handling it directly.
 
 The foad.py script is `here <https://github.com/adversary-org/foad>`__.
 
@@ -22,10 +24,11 @@ Python version specific information is in the Documentation/ directory.
 REQUIREMENTS
 ------------
 
--  Python 3.3 or greater (3.4 or above recommended).
+-  Python 3.4 or greater.
 -  Current version of Twython.
 -  Current version of Requests.
--  Current version of PyCrypto.
+-  The GNU Privacy Guard.
+-  GPGME 1.8.0 or greater.
 
 I recommend reinstalling Requests with the --upgrade flag after Twython
 is installed as Twython tends to install an older version. As this code
@@ -53,7 +56,8 @@ Recommendations
 -  Python 3.4 or greater.
 -  Current version of Twython.
 -  Current version of Requests.
--  Current version of PyCrypto.
+-  Latest release of GPG 2.1 (or above).
+-  Current version of GPGME.
 -  Current version of Pandoc.
 -  Current version of wkhtmltopdf.
 -  Current version of Tor or the Tor Browser.
@@ -74,7 +78,7 @@ Note: it may be necessary to use sudo on POSIX systems (including OS X):
 
     pip3 install --upgrade twython
     pip3 install --upgrade requests
-    pip3 install --upgrade pycrypto
+    pip3 install --upgrade gpg
 
 
 Contacting me

@@ -1,10 +1,15 @@
-Copyright © 2013-2014, Benjamin D. McGinnes
+Copyright © 2013-2017, Benjamin D. McGinnes
 
-Copyright (C) 2013-2014, Benjamin D. McGinnes
+Copyright (C) 2013-2017, Benjamin D. McGinnes
 All rights reserved.
 
 All licenses this software is distributed under can be found in the
 Licenses directory.
 
-Currently licensed under the three clause BSD license.
+Currently licensed under the three clause BSD license and the Apache
+License 2.0.
+
+GPGME and its Python module is incorporated in accordance with the
+terms of the GNU Lesser General Public License 2.1 as a module or
+library for this project.
 

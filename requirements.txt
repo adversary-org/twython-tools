@@ -1,4 +1,3 @@
 twython>=3.2.0
 requests>=2.3.0
-pycrypto>=2.6.1
-simple-crypt>=3.0.2
+gpg>=1.8.0
