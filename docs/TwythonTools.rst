@@ -1,10 +1,11 @@
 Requirements
 ============
 
-* Python 3.2 or above
+* Python 3.4 or above
 * Python Requests 2.1.0 or above
-* Twython 3.1.0 or above (3.3.0 or above for the mute function)
-* PyCrypto 2.6.1 or above
+* Twython 3.3.0 or above
+* GPG current version, ideally on the 2.1 branch
+* GPGME 1.8.0 or above
 * foad.py (optional)
 * A Twitter account
 * Twitter API/App keys/tokens
