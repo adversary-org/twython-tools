@@ -30,6 +30,7 @@ below) the @ symbol should be used with the foad.py -n or -r flags.
 All foad-* and froad-* scripts use the format of:
 
 ::
+
     f[r]oad-script.py <type> <target>
 
 In some cases (replies) with additional fields for status IDs or other
@@ -39,7 +40,8 @@ This format matches the old usage of the IRC/text script (``foad.py``)
 rather than most of the other Twitter scripts:
 
 ::
-   foad.py <type> [<target>]
+   
+    foad.py <type> [<target>]
 
 In the case of the IRC/text script it is still quite possible the
 script will be used without a target, which is why the target field
@@ -69,11 +71,13 @@ called within grave accents (i.e. \` the character on the same key as
 the tilde character).  For example:
 
 ::
+   
     tweet-basic.py \`foad.py -f fascinating -n "George Brandis"\`
 
 Would send a tweet which said:
 
 ::
+   
     Fascinating story, George Brandis, in what chapter do you shut the fuck up?
 
 To insert any other text before or after that output it needs to be
