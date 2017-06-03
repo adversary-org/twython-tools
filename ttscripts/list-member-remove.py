@@ -26,7 +26,7 @@ __copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2017"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2017"
 __license__ = "BSD, Apache 2.0"
 __version__ = "0.0.1"
-__bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
+from license import __bitcoin__
 
 import sys
 from twython import Twython, TwythonError

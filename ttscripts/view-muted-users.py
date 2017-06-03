@@ -24,9 +24,9 @@
 __author__ = "Ben McGinnes <ben@adversary.org>"
 __copyright__ = "Copyright © Benjamin D. McGinnes, 2013-2015"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2015"
-__license__ = "BSD"
+from license import __license__
 __version__ = "0.0.2"
-__bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
+from license import __bitcoin__
 
 import time
 from twython import Twython, TwythonError

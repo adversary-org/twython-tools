@@ -31,7 +31,7 @@ __author__ = "Ben McGinnes <ben@adversary.org>"
 __copyright__ = "Copyright © Benjamin D. McGinnes, 2013-2017"
 __license__ = "BSD, Apache 2.0"
 __version__ = "0.0.1"
-__bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
+from license import __bitcoin__
 
 import math
 import sys

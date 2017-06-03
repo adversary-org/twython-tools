@@ -29,9 +29,9 @@ from __future__ import division
 __author__ = "Ben McGinnes <ben@adversary.org>"
 __copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2015"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2015"
-__license__ = "BSD"
+from license import __license__
 __version__ = "0.0.1"
-__bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
+from license import __bitcoin__
 
 # import datetime
 import time
