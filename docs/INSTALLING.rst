@@ -75,8 +75,8 @@ things by commenting out and uncommenting lines if you're on Windows.
 Then decide whether or not you want the scripts to ask about
 connecting to or checking for Tor each time or to just go ahead and do
 that without interaction.  If the latter then comment out the line
-which says `from cargs import dynamic` and uncomment the line saying
-`from cargs import dynamic`.
+which says "from cargs import dynamic" and uncomment the line saying
+"from cargs import dynamic".
 
 Then make sure you've got your Twitter App Key, App Secret, OAuth
 Token and Oauth Secret from the `Twitter App management page <https://twitter.com/settings/applications>`__.
