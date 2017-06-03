@@ -84,7 +84,11 @@ To insert any other text before or after that output it needs to be
 called through the foad.py script, it cannot be included outside the
 command line.  This includes appending hashtags to the comment.
 
-The result should be the same as using
-``subprocess.check_output('foad.py -f fascinating -n "George Brandis"', shell=True).decode("utf-8").strip()`` within a script.  Obviously there
-is no additional danger to using shell=True in a situation where the
-user already has shell access.
+The result should be the same as using this within a script:
+
+::
+
+    subprocess.check_output('foad.py -f fascinating -n "George Brandis"', shell=True).decode("utf-8").strip()
+
+Obviously there is no additional danger to using shell=True in a
+situation where the user already has shell access.
