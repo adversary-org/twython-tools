@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 ##
-# Copyright (C) Ben McGinnes, 2013-2016
+# Copyright (C) Benjamin D. McGinnes, 2013-2017
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
