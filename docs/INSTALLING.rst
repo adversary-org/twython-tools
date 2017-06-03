@@ -46,7 +46,7 @@ branches.  For this software we only care about Python 3.
 GPG and GPGME are available from the `GNU Privacy Guard
 <https://www.gnupg.org>`_ website.  It is best to install both from
 this site, but Windows users are likely to need to use the `GPG4Win
-<https://www.gpg4win.org`_ version and many OS X users favour the
+<https://www.gpg4win.org>`_ version and many OS X users favour the
 `GPGTools <https://www.gpgtools.org>`_ version.  If GPGME is installed
 with the Python bindings, the command below to install with pip3 is
 not needed for that component.
