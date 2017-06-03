@@ -72,7 +72,7 @@ users will need (or want) to use sudo with those commands:
 Configuration
 -------------
 
-First check the config.py and make sure the default settings are
+First check the ``config.py`` and make sure the default settings are
 correct for your platform.  You will probably only need to change
 things by commenting out and uncommenting lines if you're on Windows.
 
@@ -85,8 +85,8 @@ which says ``from cargs import dynamic`` and uncomment the line saying
 Then make sure you've got your Twitter App Key, App Secret, OAuth
 Token and Oauth Secret from the `Twitter App management page <https://twitter.com/settings/applications>`__.
 
-Then run gen-auth.py and enter those details in the prompts.  Enter
-the key ID for your GPG key in the prompt.
+Then run ``gen-auth.py`` and enter those details in the prompts.
+Enter the key ID for your GPG key in the prompt.
 
 That's it.  The authorisation codes will be securely protected by GPG
 and unlocking them will be handled by gpg-agent.  All that remains is

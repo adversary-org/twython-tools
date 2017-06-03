@@ -30,25 +30,26 @@ REQUIREMENTS
 -  The GNU Privacy Guard.
 -  GPGME 1.8.0 or greater.
 
-I recommend reinstalling Requests with the --upgrade flag after Twython
+I recommend reinstalling Requests with the ``--upgrade`` flag after Twython
 is installed as Twython tends to install an older version. As this code
 depends on Twython you can skip Requests and rely on the version
 installed by Twython by default.
 
 To use the scripts which post images to Twitter requires additional
-software not included in this project.  In particular wkhtmltoimage,
-which is a component of `wkhtmltopdf
+software not included in this project.  In particular
+``wkhtmltoimage``, which is a component of `wkhtmltopdf
 <https://github.com/wkhtmltopdf/wkhtmltopdf>`__.  Some people might
 prefer to use ImageMagick or something else instead.  To convert text
 to HTML or XHTML I use the Haskell program, `Pandoc
 <http://pandoc.org>`__.
 
-The main scripts affected by this are tweet-full.py and tweet-long.py.
-The former uses whatever images are fed to it and the latter uses
-specific programs (Pandoc and wkhtmltoimage) to generate an image of
-text from a text file.  Most often the text file will be converted
-from Markdown, reStructuredText or Emacs' Org-Mode.  The default or
-fallback is to use Markdown, especially if the extension is .txt.
+The main scripts affected by this are ``tweet-full.py`` and
+``tweet-long.py``.  The former uses whatever images are fed to it and
+the latter uses specific programs (Pandoc and wkhtmltoimage) to
+generate an image of text from a text file.  Most often the text file
+will be converted from Markdown, reStructuredText or Emacs' Org-Mode.
+The default or fallback is to use Markdown, especially if the
+extension is .txt.
 
 
 Recommendations
@@ -89,7 +90,7 @@ My email address is in most of the scripts in this project as well as
 included in my GPG key as the primary user ID.
 
 A minimised copy of my GPG key is in the Documentation/ directory
-(ben-key-min.asc), this version does not include all the current
+(``ben-key-min.asc``), this version does not include all the current
 signatures. Refreshing that key from the key servers will restore those
 signatures.
 
