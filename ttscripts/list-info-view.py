@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from __future__ import division
 
 ##
-# Copyright © Ben McGinnes, 2013-2015
+# Copyright © Ben McGinnes, 2013-2017
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
@@ -25,11 +25,11 @@ from __future__ import division
 #
 ##
 
-__author__ = "Ben McGinnes <ben@adversary.org>"
-__copyright__ = "Copyright © Benjamin D. McGinnes, 2013-2015"
-__license__ = "BSD"
+from license import __author__
+from license import __copyright__
+from license import __license__
 __version__ = "0.0.2"
-__bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
+from license import __bitcoin__
 
 import datetime
 import os.path

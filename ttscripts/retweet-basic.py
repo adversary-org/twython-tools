@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 ##
-# Copyright (C) Ben McGinnes, 2013-2016
+# Copyright (C) Benjamin D. McGinnes, 2013-2017
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
@@ -13,7 +13,7 @@
 #
 # Requirements:
 #
-# * Python 3.2 or later (developed with Python 3.4.x)
+# * Python 3.4 or later.
 # * Converted from scripts initially developed with Python 2.7.x.
 #
 # Options and notes:
@@ -22,12 +22,12 @@
 #
 ##
 
-__author__ = "Ben McGinnes <ben@adversary.org>"
-__copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2016"
-__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2016"
-__license__ = "BSD"
+from license import __author__
+from license import __copyright__
+from license import __copyrighta__
+from license import __license__
 __version__ = "0.0.2"
-__bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
+from license import __bitcoin__
 
 import sys
 from twython import Twython, TwythonError

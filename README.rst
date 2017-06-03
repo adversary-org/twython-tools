@@ -18,7 +18,7 @@ instead of handling it directly.
 
 The foad.py script is `here <https://github.com/adversary-org/foad>`__.
 
-Python version specific information is in the Documentation/ directory.
+Python version specific information is in the docs/ directory.
 
 
 REQUIREMENTS
