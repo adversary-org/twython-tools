@@ -4,12 +4,17 @@ Copyright (C) 2013-2017, Benjamin D. McGinnes
 All rights reserved.
 
 All licenses this software is distributed under can be found in the
-Licenses directory.
+Licenses directory.  Previous licenses may also be found in this
+directory if relevant.
 
-Currently licensed under the three clause BSD license and the Apache
-License 2.0.
+Currently licensed under the Apache License 2.0.
+
+Was originally distributed under the 3-clause BSD license.  A copy of
+that old license is included in the Licenses directory.
 
 GPGME and its Python module is incorporated in accordance with the
 terms of the GNU Lesser General Public License 2.1 as a module or
-library for this project.
+library for this project.  See the GPGME documentation for more
+details.
+
 
