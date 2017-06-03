@@ -6,6 +6,7 @@ Requirements
 * Twython 3.3.0 or above
 * GPG current version, ideally on the 2.1 branch
 * GPGME 1.8.0 or above
+* A GPG Key with encryption subkey.
 * foad.py (optional)
 * A Twitter account
 * Twitter API/App keys/tokens
