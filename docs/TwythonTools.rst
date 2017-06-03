@@ -72,7 +72,7 @@ the tilde character).  For example:
 
 ::
    
-    tweet-basic.py \`foad.py -f fascinating -n "George Brandis"\`
+    tweet-basic.py `foad.py -f fascinating -n "George Brandis"`
 
 Would send a tweet which said:
 
