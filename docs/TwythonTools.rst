@@ -23,8 +23,9 @@ authentication codes obtained from twitter.com.
 Unless otherwise specified, **DO NOT** include the @ symbol in a
 Twitter username, the scripts usually add these if they are required.
 Rare exceptions include replies and basic tweets.  So if using the
-foad.py script with ``tweet-basic.py`` via a grave accented call (see
-below) the @ symbol should be used with the foad.py -n or -r flags.
+``foad.py`` script with ``tweet-basic.py`` via a grave accented call (see
+below) the @ symbol should be used with the foad ``-n`` or ``-r``
+flags.
 
 
 All foad-* and froad-* scripts use the format of:
