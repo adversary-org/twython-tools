@@ -9,7 +9,7 @@
 # Version:  0.1.1
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
-# License:  BSD
+# 
 #
 #
 # Requirements:

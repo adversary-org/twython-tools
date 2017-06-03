@@ -9,7 +9,7 @@
 # Version:  0.0.9
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
-# License:  BSD
+# 
 #
 # Options and notes:
 #

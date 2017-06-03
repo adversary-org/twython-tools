@@ -8,11 +8,11 @@
 # Version:  0.0.1
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
-# License:  BSD
+# 
 #
 # Requirements:
 #
-# * Python 3.2 or later (developed with Python 3.4.x)
+# * Python 3.4 or later.
 #
 # Options and notes:
 #
