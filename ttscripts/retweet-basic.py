@@ -8,7 +8,7 @@
 # Version:  0.0.2
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
-# License:  BSD
+# 
 #
 #
 # Requirements:

@@ -9,10 +9,9 @@ from __future__ import division
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.1
+# Version:  0.0.2
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
-# License:  BSD and/or Apache 2.0
 #
 #
 # Requirements:
@@ -29,9 +28,9 @@ from __future__ import division
 
 from license import __author__
 from license import __copyright__
-__license__ = "BSD, Apache 2.0"
-__version__ = "0.0.1"
+from license import __license__
 from license import __bitcoin__
+__version__ = "0.0.2"
 
 import math
 import sys
@@ -42,14 +41,14 @@ from config import *
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 """
-Add a user to one or more lists.
+Remove a user to one or more lists.
 """
 
 cred = twitter.verify_credentials()
 l = len(sys.argv)
 
 if l == 1:
-    username = input("Enter the ID or username to add to lists: ")
+    username = input("Enter the ID or username to remove from lists: ")
     targetx = input("Enter lists/slugs (separate by spaces): ")
 elif l == 2:
     username = sys.argv[1]

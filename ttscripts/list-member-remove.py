@@ -5,10 +5,9 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.1
+# Version:  0.0.2
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
-# License:  BSD and/or Apache 2.0
 #
 #
 # Requirements:
@@ -24,9 +23,9 @@
 from license import __author__
 from license import __copyright__
 from license import __copyrighta__
-__license__ = "BSD, Apache 2.0"
-__version__ = "0.0.1"
+from license import __license__
 from license import __bitcoin__
+__version__ = "0.0.2"
 
 import sys
 from twython import Twython, TwythonError
