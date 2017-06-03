@@ -36,7 +36,7 @@ depends on Twython you can skip Requests and rely on the version
 installed by Twython by default.
 
 To use the scripts which post images to Twitter requires additional
-software not included in this project.  In particular wkhtmlto image,
+software not included in this project.  In particular wkhtmltoimage,
 which is a component of `wkhtmltopdf
 <https://github.com/wkhtmltopdf/wkhtmltopdf>`__.  Some people might
 prefer to use ImageMagick or something else instead.  To convert text
