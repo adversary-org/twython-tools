@@ -25,7 +25,7 @@ from __future__ import division
 #
 ##
 
-__author__ = "Ben McGinnes <ben@adversary.org>"
+from license import __author__
 __copyright__ = "Copyright © Benjamin D. McGinnes, 2013-2015"
 from license import __license__
 __version__ = "0.0.2"

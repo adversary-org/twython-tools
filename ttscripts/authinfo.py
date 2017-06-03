@@ -31,10 +31,9 @@
 #
 ##
 
-__author__ = "Ben McGinnes <ben@adversary.org>"
-__copyright__ = "Copyright © Benjamin D. McGinnes, 2013-2017"
-__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2017"
-__copyrightu__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2017"
+from license import __author__
+from license import __copyright__
+from license import __copyrighta__
 from license import __license__
 __version__ = "0.1.0"
 from license import __bitcoin__

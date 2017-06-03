@@ -13,7 +13,7 @@ __copyright2a__ = "Copyright (C) Benjamin D. McGinnes, 2013-{0}".format(year)
 __license__ = "Apache 2.0"
 __license_text__ = "Licenses/Apache.md"
 __version__ = "0.0.1"
-from license import __bitcoin__
+__bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 boiler_generic = """
     Copyright 2013-2017 Benjamin D. McGinnes

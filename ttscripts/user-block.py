@@ -22,7 +22,7 @@
 #
 ##
 
-__author__ = "Ben McGinnes <ben@adversary.org>"
+from license import __author__
 __copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2015"
 __copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2015"
 from license import __license__
