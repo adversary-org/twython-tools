@@ -36,11 +36,12 @@ depends on Twython you can skip Requests and rely on the version
 installed by Twython by default.
 
 To use the scripts which post images to Twitter requires additional
-software not included in this project.  In particular, `wkhtmltopdf
-<https://github.com/wkhtmltopdf/wkhtmltopdf>`__, which is a component
-of wkhtmltopdf.  Some people might prefer to use ImageMagick or
-something else instead.  To convert text to HTML or XHTML I use the
-Haskell program, `Pandoc <http://pandoc.org>`__.
+software not included in this project.  In particular wkhtmlto image,
+which is a component of `wkhtmltopdf
+<https://github.com/wkhtmltopdf/wkhtmltopdf>`__.  Some people might
+prefer to use ImageMagick or something else instead.  To convert text
+to HTML or XHTML I use the Haskell program, `Pandoc
+<http://pandoc.org>`__.
 
 The main scripts affected by this are tweet-full.py and tweet-long.py.
 The former uses whatever images are fed to it and the latter uses
