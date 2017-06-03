@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 ##
-# Copyright (C) Ben McGinnes, 2013-2014
+# Copyright (C) Benjamin D. McGinnes, 2013-2017
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
@@ -14,7 +14,7 @@
 #
 # Requirements:
 #
-# * Python 3.2 or later (developed with Python 3.4.x)
+# * Python 3.4 or later.
 # * Converted from scripts initially developed with Python 2.7.x.
 #
 # Options and notes:
@@ -24,11 +24,11 @@
 ##
 
 from license import __author__
-__copyright__ = "Copyright \u00a9 Benjamin D. McGinnes, 2013-2014"
-__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2014"
+from license import __copyright__
+from license import __copyrighta__
 from license import __license__
-__version__ = "0.0.2"
 from license import __bitcoin__
+__version__ = "0.0.2"
 
 import sys
 from twython import Twython, TwythonError
@@ -47,3 +47,4 @@ try:
     twitter.report_spam(screen_name=spammer)
 except TwythonError as e:
     print(e)
+
