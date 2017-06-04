@@ -6,7 +6,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.1.0
+# Version:  0.1.1
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # 
@@ -35,18 +35,31 @@ from license import __author__
 from license import __copyright__
 from license import __copyrighta__
 from license import __license__
-__version__ = "0.1.0"
 from license import __bitcoin__
+__version__ = "0.1.1"
 
-
+import os
+import os.path
 import gpg
 
-afile = open("oauth.py.asc", "rb")
-authdata = gpg.Context().decrypt(afile)
-afile.close()
+if os.path.exists("oauth.py.gpg") is True:
+    oauthy = "oauth.py.gpg"
+elif os.path.exists("oauth.py.asc") is True:
+    oauthy = "oauth.py.asc"
+else:
+    oauthy = None
 
-exec(authdata[0].decode("utf-8"))
-del authdata
+if oauthy is not None:
+    afile = open(oauthy, "rb")
+    authdata = gpg.Context().decrypt(afile)
+    afile.close()
+
+    exec(authdata[0].decode("utf-8"))
+    del authdata
+else:
+    print("""
+    You must run gen-auth.py first.
+""")
 
 APP_KEY = oauth.APP_KEY
 APP_SECRET = oauth.APP_SECRET
