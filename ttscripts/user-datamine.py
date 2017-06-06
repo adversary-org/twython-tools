@@ -5,10 +5,9 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.4
+# Version:  0.0.5
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
-# 
 #
 #
 # Requirements:
@@ -26,8 +25,8 @@ from license import __author__
 from license import __copyright__
 from license import __copyrighta__
 from license import __license__
-__version__ = "0.0.4"
 from license import __bitcoin__
+__version__ = "0.0.5"
 
 import datetime
 import requests
@@ -177,6 +176,11 @@ for i in range(len(targets)):
         else:
             d2sf = "unknown"
 
+        try:
+            d2sb_ck = data['status']['id']
+        except KeyError as e:
+            d2sb_ck = None
+
         d2sbx = d2s["blocking"]
         if d2sbx is True:
             d2sb = "{0} is blocking you.".format(them)
@@ -186,6 +190,8 @@ for i in range(len(targets)):
             d2sb = "{0} is not blocking you.".format(them)
         elif d1sfx is False and d2sfx is True:
             d2sb = "{0} is probably not blocking you.".format(them)
+        elif d1sfx is False and d2sfx is False and d2sb_ck is None:
+            d2sb = "{0} is probably blocking you.".format(them)
         else:
             d2sb = "It is not known whether {0} is blocking you or not.".format(them)
 
