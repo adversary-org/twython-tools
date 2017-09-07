@@ -113,5 +113,8 @@ This type of manual manipulation of database content may be best
 served by the use of third party tools.  Though it is a proprietary
 and paid product, I've generally found Navicat's database tools to be
 incredibly useful when playing with a whole bunch of database types;
-usually Postgres, MySQ, MariaDB and SQLite).
+usually Postgres, MySQ, MariaDB and SQLite).  That said, the sqlite3
+command line tool for those systems which have it (generally POSIX
+compliant systems), should also meet this requirement.
+
 
