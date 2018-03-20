@@ -35,8 +35,6 @@ from license import __license__
 __version__ = "0.1.2"
 from license import __bitcoin__
 
-
-import os
 from gpg import core, errors
 
 print("""
