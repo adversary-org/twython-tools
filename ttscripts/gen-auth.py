@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 ##
-# Copyright (C) Benjamin D. McGinnes, 2013-2017
+# Copyright (C) Benjamin D. McGinnes, 2013-2018
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.1.1
+# Version:  0.1.2
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # 
@@ -16,7 +16,6 @@
 #
 # * Python 3.4 or later (developed with Python 3.5.x)
 # * GPG, GPGME and PyME (the latter is included with GPGME)
-# ** The PyME module has been renamed as gpg.
 # * Tor service with SOCKS and proxy (optional).
 #
 # Options and notes:
@@ -33,7 +32,7 @@ from license import __author__
 from license import __copyright__
 from license import __copyrighta__
 from license import __license__
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 from license import __bitcoin__
 
 
@@ -74,25 +73,12 @@ authdata = """class oauth:
 """.format(data[0], data[1], data[2], data[3])
 del data
 
-plain = core.Data(authdata)
-cipher = core.Data()
-c = core.Context()
-c.set_armor(1)
+c = core.Context(armor=True)
+logrus = list(c.keylist(pattern=rkey, secret=False))
 
-c.op_keylist_start(rkey, 0)
-r = c.op_keylist_next()
-
-del authdata
-
-if r == None:
-    print("""The key for user "{0}" was not found""".format(rkey))
-else:
-    try:
-        c.op_encrypt([r], 1, plain, cipher)
-        cipher.seek(0, os.SEEK_SET)
-        afile = open("oauth.py.asc", "wb")
-        afile.write(cipher.read())
-        afile.close()
-    except errors.GPGMEError as ex:
-        print(ex.getstring())
-
+try:
+    cipher = c.encrypt(text, recipients=logrus, sign=False)
+    with open("oauth.py.asc", "wb") as afile:
+        afile.write(cipher[0])
+except errors.GPGMEError as ex:
+    print(ex.getstring())
