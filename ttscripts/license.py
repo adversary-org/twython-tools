@@ -6,17 +6,17 @@ import datetime
 year = datetime.date.today().year
 
 __author__ = "Ben McGinnes <ben@adversary.org>"
-__copyright__ = "Copyright © Benjamin D. McGinnes, 2013-2017"
-__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2017"
+__copyright__ = "Copyright © Benjamin D. McGinnes, 2013-2018"
+__copyrighta__ = "Copyright (C) Benjamin D. McGinnes, 2013-2018"
 __copyright2__ = "Copyright © Benjamin D. McGinnes, 2013-{0}".format(year)
 __copyright2a__ = "Copyright (C) Benjamin D. McGinnes, 2013-{0}".format(year)
 __license__ = "Apache 2.0"
 __license_text__ = "Licenses/Apache.md"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __bitcoin__ = "1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU"
 
 boiler_generic = """
-    Copyright 2013-2017 Benjamin D. McGinnes
+    Copyright 2013-2018 Benjamin D. McGinnes
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ boiler_generic = """
 """
 
 boiler_static_text = """
-    Copyright (C) Benjamin D. McGinnes, 2013-2017
+    Copyright (C) Benjamin D. McGinnes, 2013-2018
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ boiler_static_text = """
 """
 
 boiler_static_utf8 = """
-    Copyright © Benjamin D. McGinnes, 2013-2017
+    Copyright © Benjamin D. McGinnes, 2013-2018
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
