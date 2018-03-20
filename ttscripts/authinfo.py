@@ -2,19 +2,19 @@
 # -*- coding: utf-8 -*-
 
 ##
-# Copyright (C) Benjamin D. McGinnes, 2013-2017
+# Copyright (C) Benjamin D. McGinnes, 2013-2018
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.1.1
+# Version:  0.1.2
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # 
 #
 # Requirements:
 #
-# * Python 3.4 or later (developed with Python 3.4.x).
-# * GPGME 1.8.0 or later with Python bindings.
+# * Python 3.4 or later.
+# * GPGME 1.10.0 or later with Python bindings.
 #
 # Options and notes:
 #
@@ -36,7 +36,7 @@ from license import __copyright__
 from license import __copyrighta__
 from license import __license__
 from license import __bitcoin__
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 import os
 import os.path
@@ -50,12 +50,9 @@ else:
     oauthy = None
 
 if oauthy is not None:
-    afile = open(oauthy, "rb")
-    authdata = gpg.Context().decrypt(afile)
-    afile.close()
-
+    with open(oauthy, "rb") as afile:
+        authdata = gpg.Context().decrypt(afile)
     exec(authdata[0].decode("utf-8"))
-    del authdata
 else:
     print("""
     You must run gen-auth.py first.
