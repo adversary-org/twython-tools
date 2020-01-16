@@ -5,7 +5,7 @@
 # ben@adversary.org
 # OpenPGP/GPG key:  0x321E4E2373590E5D
 #
-# Version:  0.0.1
+# Version:  0.0.2
 #
 # BTC:  1KvKMVnyYgLxU1HnLQmbWaMpDx3Dz15DVU
 # 
@@ -26,7 +26,7 @@ from license import __author__
 from license import __copyright__
 from license import __copyrighta__
 from license import __license__
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 from license import __bitcoin__
 
 import os.path
@@ -37,7 +37,6 @@ from config import *
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 l = len(sys.argv)
-users = []
 
 if l >=2:
     userfile = sys.argv[1]
@@ -46,16 +45,13 @@ else:
 
 uf = os.path.expanduser(userfile)
 with open(uf, "r") as f:
-    userz = f.readlines()
-
-for usr in userz:
-    users.append(usr.strip())
+    users = f.readlines()
 
 for user in users:
     try:
-        target = int(user)
+        target = int(user.strip())
     except:
-        target = user
+        target = user.strip()
 
     if isinstance(target, str) is True:
         try:
