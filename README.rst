@@ -4,7 +4,7 @@ Twython Tools
 Command line scripts and tools for implementing Twython functions.
 
 Incorporates functions from other Python libraries and modules,
-including twython, requests, GPGME (as gpg), and foad.py (optional).
+including twython, requests, GPGME (as ``gpg``), and foad.py (optional).
 
 Use of Tor is optional.
 
@@ -66,8 +66,8 @@ Recommendations
 
 Note that Tor only needs to be running to be used.  The code will
 automatically test for the presence of a SOCKS or HTTP proxy on the
-standard Tor ports (9050 and 9150) and the standard Privoxy
-port (8118) to connect through.  If those ports are open, then it will
+standard Tor ports (9050 and 9150) and the standard Privoxy port
+(8118) to connect through.  If those ports are open, then it will
 be used, otherwise it will connect directly.
 
 
@@ -80,7 +80,13 @@ Note: it may be necessary to use sudo on POSIX systems (including OS X):
 
     pip3 install --upgrade twython
     pip3 install --upgrade requests
-    pip3 install --upgrade gpg
+
+To install the ``gpg`` module should not be installed with ``pip`` or
+otherwise installing the version on PyPI (version 1.10.0).  Instead
+the module is dynamically generated and bound the GPGME C API when
+GPGME is compiled and installed.  See the GPGME Python bindings `HOWTO
+<http://files.au.adversary.org/crypto/gpgme-python-howto.html>`__ for
+full details and instructions.
 
 
 Contacting me
